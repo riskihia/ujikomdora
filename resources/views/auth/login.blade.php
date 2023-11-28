@@ -11,22 +11,37 @@
     <!-- LOGIN -->
     <div class="flex min-h-full flex-col justify-center px-6 py-12 lg:px-8">
       <div class="shadow-2xl md:w-1/3 mx-auto p-4 relative">
+       
         {{-- button close --}}
-        <a href="/">
+        <a href="{{route('dashboard')}}">
           <span class="text-2xl absolute bg-violet-500 rounded-full w-8 h-8 top-4 right-4 text-white flex justify-center items-center">X</span>
           <div class="sm:mx-auto sm:w-full sm:max-w-sm">
-      </a>
+        </a>
 
         <div class="sm:mx-auto sm:w-full sm:max-w-sm">
           <h2 class="mt-10 text-center text-2xl font-bold leading-9 tracking-tight text-gray-900">Sign in to your account</h2>
+        
+          @if ($errors->any())
+            <div>
+              <div class="flex items-center bg-red-300 text-white text-sm font-bold px-3 py-2" role="alert">
+                
+                <ul>
+                    @foreach($errors->all() as $error)
+                        <li>{{ $error }}</li>
+                    @endforeach
+                </ul>
+              </div>
+            </div>
+          @endif
         </div>
 
         <div class="mt-10 sm:mx-auto sm:w-full sm:max-w-sm">
-          <form class="space-y-6" action="#" method="POST">
+          <form class="space-y-6" action="/login" method="POST">
+            @csrf
             <div>
-              <label for="username" class="block text-sm font-medium leading-6 text-gray-900">Username</label>
+              <label for="email" class="block text-sm font-medium leading-6 text-gray-900">Email</label>
               <div class="mt-2">
-                <input id="username" name="username" type="username" required class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6">
+                <input id="email" name="email" type="email" required class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6">
               </div>
             </div>
 
