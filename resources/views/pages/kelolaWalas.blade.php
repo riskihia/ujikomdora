@@ -38,25 +38,12 @@
 
         <div class="p-4 bg-white border rounded-xl text-gray-800 space-y-2">
           <div class="flex gap-2">
-            <button class="bg-green-500 hover:bg-blue-700 text-white py-1 px-2 font-semibold rounded">List</button>
-            <button class="bg-green-500 hover:bg-blue-700 text-white py-1 px-2 font-semibold rounded">Create</button>
+            <button id="btn-list-walas" class="bg-green-500 hover:bg-blue-700 text-white py-1 px-2 font-semibold rounded">List</button>
+            <button id="btn-create-walas" class="bg-green-500 hover:bg-blue-700 text-white py-1 px-2 font-semibold rounded">Create</button>
           </div>
-          <h2 class="mt-10 text-center text-2xl font-bold leading-9 tracking-tight text-gray-900">Create akun walas</h2>
-          <div>
-            @if ($errors->any())
-              <div>
-                <div class="flex items-center bg-red-300 text-white text-sm font-bold px-3 py-2" role="alert">
-                  
-                  <ul>
-                      @foreach($errors->all() as $error)
-                          <li>{{ $error }}</li>
-                      @endforeach
-                  </ul>
-                </div>
-              </div>
-            @endif
-          </div>
-          <div class="relative overflow-x-auto">
+
+          <div id="listAccWalas" class="relative overflow-x-auto">
+            <h2 class="mt-10 text-center text-2xl font-bold leading-9 tracking-tight text-gray-900">List akun walas</h2>
             <table class="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
                 <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
                     <tr>
@@ -120,7 +107,22 @@
                 </tbody>
             </table>
           </div>
-          <div class="mt-10 sm:mx-auto sm:w-full sm:max-w-sm">
+          <div id="createAccWalas" class="hidden mt-10 sm:mx-auto sm:w-full sm:max-w-sm">
+            <h2 class="mt-10 text-center text-2xl font-bold leading-9 tracking-tight text-gray-900">Create akun walas</h2>
+            <div>
+              @if ($errors->any())
+                <div>
+                  <div class="flex items-center bg-red-300 text-white text-sm font-bold px-3 py-2" role="alert">
+                    
+                    <ul>
+                        @foreach($errors->all() as $error)
+                            <li>{{ $error }}</li>
+                        @endforeach
+                    </ul>
+                  </div>
+                </div>
+              @endif
+            </div>
               <form class="space-y-6" action="/walas" method="POST">
                 @csrf 
                   
@@ -142,7 +144,7 @@
                   <button type="submit" class="flex w-full justify-center rounded-md bg-indigo-600 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">Create</button>
                 </div>
               </form>
-            </div>
+          </div>
         </div>
       </div>
     </div>
