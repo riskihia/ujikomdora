@@ -6,6 +6,7 @@ use App\Models\Admin;
 use App\Models\Walas;
 use Dotenv\Repository\RepositoryInterface;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Validation\ValidationException;
 
@@ -13,7 +14,7 @@ class AdminController extends Controller
 {
     public function dashboard()
     {
-        return redirect("/bk");
+        return redirect("/walas");
     }
 
     public function loginPage()
@@ -41,9 +42,9 @@ class AdminController extends Controller
             ]);
         }
 
-        if($password !== $user->password){
+        if (!Hash::check($password, $user->password)) {
             return redirect()->route('login')->withErrors([
-                "error" => "User tidak valid"
+                'error' => 'User tidak valid',
             ]);
         }
 
@@ -81,40 +82,13 @@ class AdminController extends Controller
         $user = new Admin();
         $user->email = $email;
         $user->username = $username;
-        $user->password = $password;
+        $user->password = Hash::make($password);
         $user->save();
-        
-        return redirect()->route("/");
-    }
-
-    public function createWalas(Request $request)
-    {
-       $validator = Validator::make($request->all(), [
-            'nuptk' => 'required',
-            'password' => 'required|string',
-       ]);
-    
-        if ($validator->fails()) {
-            return redirect()->route('/walas')->withErrors($validator);
-        }
-
-        $nuptk = $request->input("nuptk");
-        $password = $request->input("password");
-
-        $walas = Walas::where("nuptk", $nuptk)->first();
-        if($walas){
-            return redirect()->route('dashboard')->withErrors([
-                "error" => "Data walas tidak valid"
-            ]);
-        }
-
-        $walas = new Walas();
-        $walas->nuptk = $nuptk;
-        $walas->password = $password;
-        $walas->save();
         
         return redirect()->route("dashboard");
     }
+
+    
 
     public function bkPage()
     {
@@ -124,8 +98,5 @@ class AdminController extends Controller
     {
         return view("pages.kelolaSekretaris");
     }
-    public function walasPage()
-    {
-        return view("pages.kelolaWalas");
-    }
+    
 }

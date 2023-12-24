@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\AdminController;
+use App\Http\Controllers\WalasController;
 use App\Http\Middleware\OnlyMemberMiddleware;
 use Illuminate\Support\Facades\Route;
 
@@ -24,9 +25,12 @@ Route::get('/register', [AdminController::class, 'registerPage'])->name("registe
 Route::post('/register', [AdminController::class, 'registerProses']);
 
 
-//admin
-Route::post('/walas', [AdminController::class, 'createWalas']);
+//walas
+Route::post('/walas', [WalasController::class, 'createWalas']);
+Route::delete('/walas', [WalasController::class, 'deleteWalas']);
+Route::put('/walas', [WalasController::class, 'updateWalas']);
+Route::get('/walas/{id}/edit', [WalasController::class, 'editWalas']);
 
-Route::get('/walas', [AdminController::class, 'walasPage']);
+Route::get('/walas', [WalasController::class, 'walasPage']);
 Route::get('/bk', [AdminController::class, 'bkPage']);
 Route::get('/sekretaris', [AdminController::class, 'sekretarisPage']);
