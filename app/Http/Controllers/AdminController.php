@@ -13,7 +13,7 @@ class AdminController extends Controller
 {
     public function dashboard()
     {
-        return view('dashboard');
+        return redirect("/bk");
     }
 
     public function loginPage()
