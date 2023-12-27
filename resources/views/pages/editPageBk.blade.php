@@ -9,7 +9,7 @@
 </head>
 <body class="h-full">
   
-  @include('components.aside')
+  @include('components.aside', ['side' => 'akun'])
 
   <button id="sidebarButton" class="md:hidden items-center text-blue-600 p-3">
       <svg class="block scale-150 h-4 w-4 fill-current" viewBox="0 0 20 20">

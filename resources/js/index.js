@@ -1,3 +1,14 @@
+// Siswa
+var btnRPL1 = document.getElementById("btn-rpl1");
+var btnRPL2 = document.getElementById("btn-rpl2");
+var panelRPL1 = document.getElementById("panel-rpl1");
+var panelRPL2 = document.getElementById("panel-rpl2");
+
+var btnListSiswaRPL1 = document.getElementById("rpl1-btn-list-siswa");
+var btnCreateSiswaRPL1 = document.getElementById("rpl1-btn-create-siswa");
+var listKelolaSiswaRPL1 = document.getElementById("rpl1-listKelolaSiswa");
+var createKelolaSiswaRPL1 = document.getElementById("rpl1-createKelolaSiswa");
+
 // Walas
 var btnListWalas = document.getElementById("btn-list-walas");
 var btnCreateWalas = document.getElementById("btn-create-walas");
@@ -21,6 +32,27 @@ var sidebarButton = document.getElementById("sidebarButton");
 var sidebarButtonInsidePanel = document.getElementById(
     "sidebarButtonInsidePanel"
 );
+
+//panel siswa
+if (btnRPL1) {
+    panelRPL1.addEventListener("click", function () {
+        panelRPL2.classList.remove("hidden");
+        panelRPL1.classList.add("hidden");
+    });
+    panelRPL2.addEventListener("click", function () {
+        panelRPL1.classList.remove("hidden");
+        panelRPL2.classList.add("hidden");
+    });
+}
+//siswa
+if (btnListSiswaRPL1) {
+    btnListSiswaRPL1.addEventListener("click", function () {
+        console.log("list");
+    });
+    btnCreateSiswaRPL1.addEventListener("click", function () {
+        console.log("create");
+    });
+}
 
 //walas
 if (btnListWalas) {

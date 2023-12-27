@@ -88,8 +88,6 @@ class AdminController extends Controller
         return redirect()->route("dashboard");
     }
 
-    
-
     public function bkPage()
     {
         return view("pages.kelolaBk");
@@ -99,4 +97,12 @@ class AdminController extends Controller
         return view("pages.kelolaSekretaris");
     }
     
+    public function logoutProses(Request $request)
+    {
+        // Clear the user's session
+        $request->session()->forget('user_email');
+
+        // Redirect to the login page
+        return redirect()->route('login');
+    }
 }

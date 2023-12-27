@@ -9,34 +9,37 @@
             <h1 class="text-xl font-bold leading-none"><span class="text-yellow-700">Citra Negara</span> Presensi</h1>
         </div>
         <div class="p-4">
-            <ul class="space-y-1">
-            <li>
-                <a href="" class="flex items-center bg-yellow-200 rounded-xl font-bold text-sm text-yellow-900 py-3 px-4">
-                <span>⬆</span> Kelola Akun
-                </a>
-            </li>
-            <li>
-                <a href="" class="flex items-center rounded-xl font-bold text-sm text-yellow-900 py-3 px-4">
-                    <span>⬆</span> Kelola Laporan
-                </a>
-            </li>
-            <li>
-                <a href="" class="flex items-center rounded-xl font-bold text-sm text-yellow-900 py-3 px-4">
-                <span>⬆</span> Kelola data siswa
-                </a>
-            </li>
-            <li>
-                <a href="" class="flex items-center rounded-xl font-bold text-sm text-yellow-900 py-3 px-4">
-                <span>⬆</span> Kelola Pesan
-                </a>
-            </li>
+            <ul id="navigationLink" class="space-y-1">
+                <li class="{{ $side == 'akun' ? 'active' : '' }}">
+                    <a href="/" class="flex items-center rounded-xl font-bold text-sm text-yellow-900 py-3 px-4">
+                    <span>⬆</span> Kelola Akun
+                    </a>
+                </li>
+                <li>
+                    <a href="" class="flex items-center rounded-xl font-bold text-sm text-yellow-900 py-3 px-4">
+                        <span>⬆</span> Kelola Laporan
+                    </a>
+                </li>
+                <li class="{{ $side == 'siswa' ? 'active' : '' }}">
+                    <a href="/siswa" class="flex items-center rounded-xl font-bold text-sm text-yellow-900 py-3 px-4">
+                    <span>⬆</span> Kelola data siswa
+                    </a>
+                </li>
+                <li>
+                    <a href="" class="flex items-center rounded-xl font-bold text-sm text-yellow-900 py-3 px-4">
+                    <span>⬆</span> Kelola Pesan
+                    </a>
+                </li>
             </ul>
         </div>
         </div>
         <div class="p-4">
-        <button type="button" class="inline-flex items-center justify-center h-9 px-4 rounded-xl bg-gray-900 text-gray-300 hover:text-white text-sm font-semibold transition">
-            ⭕<span class="font-bold text-sm ml-2">Logout</span>
-        </button> 
+        <form action="{{ route('logout') }}" method="post">
+            @csrf
+            <button type="submit" class="inline-flex items-center justify-center h-9 px-4 rounded-xl bg-gray-900 text-gray-300 hover:text-white text-sm font-semibold transition">
+                ⭕<span class="font-bold text-sm ml-2">Logout</span>
+            </button> 
+        </form>
         </div>
     </div>
 </aside>
