@@ -51,7 +51,7 @@ class WalasController extends Controller
     public function editWalas($id){
         $walas_id = $id;
         $walas = Walas::where("id", $walas_id)->first();
-        return view("pages.editPage", [
+        return view("pages.editPageWalas", [
             "walas" => $walas
         ]);
     }

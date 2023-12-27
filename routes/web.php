@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\AdminController;
+use App\Http\Controllers\BkController;
 use App\Http\Controllers\WalasController;
 use App\Http\Middleware\OnlyMemberMiddleware;
 use Illuminate\Support\Facades\Route;
@@ -31,6 +32,12 @@ Route::delete('/walas', [WalasController::class, 'deleteWalas']);
 Route::put('/walas', [WalasController::class, 'updateWalas']);
 Route::get('/walas/{id}/edit', [WalasController::class, 'editWalas']);
 
+//bk
+Route::post('/bk', [BkController::class, 'createBk']);
+Route::delete('/bk', [BkController::class, 'deleteBk']);
+Route::put('/bk', [BkController::class, 'updateBk']);
+Route::get('/bk/{id}/edit', [BkController::class, 'editBk']);
+
 Route::get('/walas', [WalasController::class, 'walasPage']);
-Route::get('/bk', [AdminController::class, 'bkPage']);
+Route::get('/bk', [BkController::class, 'bkPage']);
 Route::get('/sekretaris', [AdminController::class, 'sekretarisPage']);
