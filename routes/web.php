@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\BkController;
+use App\Http\Controllers\SekretarisController;
 use App\Http\Controllers\WalasController;
 use App\Http\Middleware\OnlyMemberMiddleware;
 use Illuminate\Support\Facades\Route;
@@ -38,6 +39,12 @@ Route::delete('/bk', [BkController::class, 'deleteBk']);
 Route::put('/bk', [BkController::class, 'updateBk']);
 Route::get('/bk/{id}/edit', [BkController::class, 'editBk']);
 
+//seretaris
+Route::post('/sekretaris', [SekretarisController::class, 'createSekretaris']);
+Route::delete('/sekretaris', [SekretarisController::class, 'deleteSekretaris']);
+Route::put('/sekretaris', [SekretarisController::class, 'updateSekretaris']);
+Route::get('/sekretaris/{id}/edit', [SekretarisController::class, 'editSekretaris']);
+
 Route::get('/walas', [WalasController::class, 'walasPage']);
 Route::get('/bk', [BkController::class, 'bkPage']);
-Route::get('/sekretaris', [AdminController::class, 'sekretarisPage']);
+Route::get('/sekretaris', [SekretarisController::class, 'sekretarisPage']);

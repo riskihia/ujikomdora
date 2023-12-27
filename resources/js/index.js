@@ -10,6 +10,12 @@ var btnCreateBk = document.getElementById("btn-create-Bk");
 var listAccBk = document.getElementById("listAccBk");
 var createAccBk = document.getElementById("createAccBk");
 
+// Bk
+var btnListSekretaris = document.getElementById("btn-list-Sekretaris");
+var btnCreateSekretaris = document.getElementById("btn-create-Sekretaris");
+var listAccSekretaris = document.getElementById("listAccSekretaris");
+var createAccSekretaris = document.getElementById("createAccSekretaris");
+
 var sidebarPanel = document.getElementById("sidebarPanel");
 var sidebarButton = document.getElementById("sidebarButton");
 var sidebarButtonInsidePanel = document.getElementById(
@@ -41,6 +47,20 @@ if (btnListBk) {
         listAccBk.classList.add("hidden");
         createAccBk.classList.remove("hidden");
         createAccBk.classList.add("block");
+    });
+}
+
+//sekretaris
+if (btnListSekretaris) {
+    btnListSekretaris.addEventListener("click", function () {
+        listAccSekretaris.classList.remove("hidden");
+        createAccSekretaris.classList.remove("block");
+        createAccSekretaris.classList.add("hidden");
+    });
+    btnCreateSekretaris.addEventListener("click", function () {
+        listAccSekretaris.classList.add("hidden");
+        createAccSekretaris.classList.remove("hidden");
+        createAccSekretaris.classList.add("block");
     });
 }
 
