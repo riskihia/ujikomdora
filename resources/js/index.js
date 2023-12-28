@@ -4,10 +4,16 @@ var btnRPL2 = document.getElementById("btn-rpl2");
 var panelRPL1 = document.getElementById("panel-rpl1");
 var panelRPL2 = document.getElementById("panel-rpl2");
 
+//rpl1
 var btnListSiswaRPL1 = document.getElementById("rpl1-btn-list-siswa");
 var btnCreateSiswaRPL1 = document.getElementById("rpl1-btn-create-siswa");
 var listKelolaSiswaRPL1 = document.getElementById("rpl1-listKelolaSiswa");
 var createKelolaSiswaRPL1 = document.getElementById("rpl1-createKelolaSiswa");
+//rpl2
+var btnListSiswaRPL2 = document.getElementById("rpl2-btn-list-siswa");
+var btnCreateSiswaRPL2 = document.getElementById("rpl2-btn-create-siswa");
+var listKelolaSiswaRPL2 = document.getElementById("rpl2-listKelolaSiswa");
+var createKelolaSiswaRPL2 = document.getElementById("rpl2-createKelolaSiswa");
 
 // Walas
 var btnListWalas = document.getElementById("btn-list-walas");
@@ -35,22 +41,34 @@ var sidebarButtonInsidePanel = document.getElementById(
 
 //panel siswa
 if (btnRPL1) {
-    panelRPL1.addEventListener("click", function () {
-        panelRPL2.classList.remove("hidden");
-        panelRPL1.classList.add("hidden");
-    });
-    panelRPL2.addEventListener("click", function () {
+    btnRPL1.addEventListener("click", function () {
         panelRPL1.classList.remove("hidden");
         panelRPL2.classList.add("hidden");
+    });
+    btnRPL2.addEventListener("click", function () {
+        panelRPL2.classList.remove("hidden");
+        panelRPL1.classList.add("hidden");
     });
 }
 //siswa
 if (btnListSiswaRPL1) {
     btnListSiswaRPL1.addEventListener("click", function () {
-        console.log("list");
+        createKelolaSiswaRPL1.classList.add("hidden");
+        listKelolaSiswaRPL1.classList.remove("hidden");
     });
     btnCreateSiswaRPL1.addEventListener("click", function () {
-        console.log("create");
+        createKelolaSiswaRPL1.classList.remove("hidden");
+        listKelolaSiswaRPL1.classList.add("hidden");
+    });
+}
+if (btnListSiswaRPL2) {
+    btnListSiswaRPL2.addEventListener("click", function () {
+        createKelolaSiswaRPL2.classList.add("hidden");
+        listKelolaSiswaRPL2.classList.remove("hidden");
+    });
+    btnCreateSiswaRPL2.addEventListener("click", function () {
+        createKelolaSiswaRPL2.classList.remove("hidden");
+        listKelolaSiswaRPL2.classList.add("hidden");
     });
 }
 

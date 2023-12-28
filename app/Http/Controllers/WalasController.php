@@ -79,7 +79,7 @@ class WalasController extends Controller
         
         $walas->save();
         
-        return redirect("walas")->with("pesan", "data walas berhasil di update");;
+        return redirect("walas")->with("pesan", "data walas berhasil di update");
     }
 
     public function walasPage()

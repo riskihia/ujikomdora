@@ -87,15 +87,6 @@ class AdminController extends Controller
         
         return redirect()->route("dashboard");
     }
-
-    public function bkPage()
-    {
-        return view("pages.kelolaBk");
-    }
-    public function sekretarisPage()
-    {
-        return view("pages.kelolaSekretaris");
-    }
     
     public function logoutProses(Request $request)
     {

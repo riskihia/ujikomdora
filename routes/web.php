@@ -48,10 +48,14 @@ Route::middleware([OnlyMemberMiddleware::class])->group(function () {
     Route::put('/sekretaris', [SekretarisController::class, 'updateSekretaris']);
     Route::get('/sekretaris/{id}/edit', [SekretarisController::class, 'editSekretaris']);
     
+    Route::post('/siswa', [SiswaController::class, 'add']);
+    Route::delete('/siswa', [SiswaController::class, 'destroy']);
+    Route::put('/siswa', [SiswaController::class, 'update']);
+    Route::get('/siswa/{id}/edit', [SiswaController::class, 'edit']);
+    
     Route::get('/walas', [WalasController::class, 'walasPage']);
     Route::get('/bk', [BkController::class, 'bkPage']);
     Route::get('/sekretaris', [SekretarisController::class, 'sekretarisPage']);
-
     Route::get('/siswa',[SiswaController::class,'index']);
 
 });
