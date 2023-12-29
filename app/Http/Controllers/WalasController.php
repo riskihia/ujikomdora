@@ -9,12 +9,46 @@ use Illuminate\Support\Facades\Validator;
 
 class WalasController extends Controller
 {
+    public function login()
+    {
+        return view("auth.walasLogin");
+    }
+    public function doLogin(Request $request)
+    {
+        $validator = Validator::make($request->all(), [
+            'nuptk' => 'required|string',
+            'password' => 'required',
+        ]);
+        if ($validator->fails()) {
+            return back()->withErrors($validator)->withInput();
+        }
+        $nuptk = $request->input("nuptk");
+        $password = $request->input("password");
+
+        $walas = Walas::where("nuptk", $nuptk)->first();
+        if(!$walas){
+            return redirect("/walas/login")->withErrors([
+                'error' => 'User tidak valid',
+            ]);
+        }
+        
+        if (!Hash::check($password, $walas->password)) {
+            return redirect("/walas/login")->withErrors([
+                'error' => 'User tidak valid',
+            ]);
+        }
+
+        $request->session()->put("nuptk", $nuptk);
+        
+        return redirect("/absensi/walas");
+    }
     public function createWalas(Request $request)
     {
        $validator = Validator::make($request->all(), [
             'nuptk' => 'required',
             'username' => 'required|string',
             'password' => 'required|string',
+            'kelas' => 'required|in:rpl1,rpl2',
        ]);
     
         if ($validator->fails()) {
@@ -24,6 +58,7 @@ class WalasController extends Controller
         $nuptk = $request->input("nuptk");
         $password = $request->input("password");
         $username = $request->input("username");
+        $kelas = $request->input("kelas");
 
         $walas = Walas::where("nuptk", $nuptk)->first();
         if($walas){
@@ -35,20 +70,23 @@ class WalasController extends Controller
         $walas = new Walas();
         $walas->nuptk = $nuptk;
         $walas->username = $username;
-        $walas->password = $password;
+        $walas->password = Hash::make($password);
+        $walas->kelas = $kelas;
         $walas->save();
         
         return redirect('/walas')->with('pesan', "Akun $walas->username berhasil dibuat");;
     }
 
-    public function deleteWalas(Request $request){
+    public function deleteWalas(Request $request)
+    {
         $walas_id = $request->input("walas_id");
         $walas = Walas::where("id", $walas_id)->first();
         $walas->delete();
         return redirect("walas")->with('pesan', "Hapus data $walas->username berhasil");
     }
     
-    public function editWalas($id){
+    public function editWalas($id)
+    {
         $walas_id = $id;
         $walas = Walas::where("id", $walas_id)->first();
         return view("pages.editPageWalas", [
@@ -56,7 +94,8 @@ class WalasController extends Controller
         ]);
     }
     
-    public function updateWalas(Request $request){
+    public function updateWalas(Request $request)
+    {
         $walas_id = $request->input("walas_id");
         $username = $request->input("username");
         $password = $request->input("password");

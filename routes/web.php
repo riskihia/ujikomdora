@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AbsensiController;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\BkController;
 use App\Http\Controllers\SekretarisController;
@@ -18,9 +19,13 @@ use Illuminate\Support\Facades\Route;
 | be assigned to the "web" middleware group. Make something great!
 |
 */
-
+//login admin
 Route::get('/login', [AdminController::class, 'loginPage'])->name("login");
 Route::post('/login', [AdminController::class, 'loginProses']);
+
+//login walas
+Route::get('/walas/login', [WalasController::class, 'login']);
+Route::post('/walas/login', [WalasController::class, 'doLogin']);
 
 Route::get('/register', [AdminController::class, 'registerPage'])->name("register");
 Route::post('/register', [AdminController::class, 'registerProses']);
@@ -58,4 +63,7 @@ Route::middleware([OnlyMemberMiddleware::class])->group(function () {
     Route::get('/sekretaris', [SekretarisController::class, 'sekretarisPage']);
     Route::get('/siswa',[SiswaController::class,'index']);
 
+
+    Route::get("/absensi/sekretaris", [AbsensiController::class, 'indexSekretaris']);
+    Route::get("/absensi/walas", [AbsensiController::class, 'indexWalas']);
 });

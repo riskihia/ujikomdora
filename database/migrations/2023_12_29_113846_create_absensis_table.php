@@ -11,13 +11,13 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('walas', function (Blueprint $table) {
+        Schema::create('absensis', function (Blueprint $table) {
             $table->id();
-            $table->string('nuptk', 100)->unique()->nullable(false);
-            $table->string('password', 200)->nullable(false);
-            $table->string('username', 200)->nullable(true);
-            $table->string('kelas')->nullable(false);
-            $table->string('alamat')->nullable();
+            $table->date('tanggal');
+            $table->enum('status', ['Hadir', 'Tidak Hadir'])->nullable(false);
+            $table->text('keterangan')->nullable();
+            $table->unsignedBigInteger('siswa_id');
+            $table->foreign('siswa_id')->references('id')->on('siswas')->onDelete('cascade');
             $table->softDeletes();
             $table->timestamps();
         });
@@ -28,6 +28,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('walas');
+        Schema::dropIfExists('absensis');
     }
 };

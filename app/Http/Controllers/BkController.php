@@ -36,7 +36,7 @@ class BkController extends Controller
         $bk = new Bk();
         $bk->nuptk = $nuptk;
         $bk->username = $username;
-        $bk->password = $password;
+        $bk->password = Hash::make($password);
         $bk->save();
         
         return redirect('/bk')->with('pesan', "Akun $bk->username berhasil dibuat");;

@@ -36,7 +36,7 @@ class SekretarisController extends Controller
         $sekretaris = new Sekretaris();
         $sekretaris->nuptk = $nuptk;
         $sekretaris->username = $username;
-        $sekretaris->password = $password;
+        $sekretaris->password = Hash::make($password);
         $sekretaris->save();
         
         return redirect('/sekretaris')->with('pesan', "Akun $sekretaris->username berhasil dibuat");;
