@@ -7,6 +7,8 @@ use App\Http\Controllers\SekretarisController;
 use App\Http\Controllers\SiswaController;
 use App\Http\Controllers\WalasController;
 use App\Http\Middleware\OnlyMemberMiddleware;
+use App\Http\Middleware\WalasMiddleware;
+use Carbon\Carbon;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -64,6 +66,10 @@ Route::middleware([OnlyMemberMiddleware::class])->group(function () {
     Route::get('/siswa',[SiswaController::class,'index']);
 
 
+});
+
+Route::middleware([WalasMiddleware::class])->group(function () {
     Route::get("/absensi/sekretaris", [AbsensiController::class, 'indexSekretaris']);
     Route::get("/absensi/walas", [AbsensiController::class, 'indexWalas']);
+    Route::post("/absensi/walas", [AbsensiController::class, 'update']);
 });
