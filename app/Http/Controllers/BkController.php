@@ -39,7 +39,7 @@ class BkController extends Controller
         $bk->password = Hash::make($password);
         $bk->save();
         
-        return redirect('/bk')->with('pesan', "Akun $bk->username berhasil dibuat");;
+        return redirect('/bk')->with('pesan', "Akun $bk->username berhasil dibuat");
     }
 
     public function deleteBk(Request $request)
