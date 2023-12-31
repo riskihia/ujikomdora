@@ -1,9 +1,3 @@
-//absensi
-let btnDataAbsensi = document.getElementById("btn-data-absensi");
-let panelKelolaAbsensi = document.querySelector(".panel-kelola-absensi");
-let panelDataAbsensi = document.querySelector(".panel-data-absensi");
-
-console.log([btnDataAbsensi, panelKelolaAbsensi, panelDataAbsensi]);
 // Siswa
 var btnRPL1 = document.getElementById("btn-rpl1");
 var btnRPL2 = document.getElementById("btn-rpl2");
@@ -44,12 +38,6 @@ var sidebarButton = document.getElementById("sidebarButton");
 var sidebarButtonInsidePanel = document.getElementById(
     "sidebarButtonInsidePanel"
 );
-
-//absensi
-btnDataAbsensi.addEventListener("click", function () {
-    panelKelolaAbsensi.classList.toggle("hidden");
-    panelDataAbsensi.classList.toggle("hidden");
-});
 
 //panel siswa
 if (btnRPL1) {

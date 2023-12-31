@@ -35,17 +35,34 @@
         <hr class="my-4">
 
         {{-- Data absensi --}}
-        <h1>Data absensi</h1>
-        <label for="cars">Choose a car:</label>
+        <h1 class="text-2xl text-center">Data absensi</h1>
 
-        <select name="cars" id="cars">
-            <option value="volvo">Volvo</option>
-            <option value="saab">Saab</option>
-            <option value="">
-                <a href="/login" value="mercedes">Mercedes</a>
-            </option>
-            <option value="audi">Audi</option>
-        </select>
+        <div>
+          <table class="text-base">
+            <thead class="bg-slate-50">
+                <tr class="border border-slate-400">
+                  <th class="p-2">No</th>
+                  <th class="border border-r border-slate-400 p-2">Nama</th>
+                  @foreach ($absensis->unique('tanggal') as $data)
+                    <th class="border border-r border-slate-400 p-2">{{ \Carbon\Carbon::parse($data->tanggal)->format('Y-m-d') }}</th>
+                  @endforeach
+                </tr>
+            </thead>
+            <tbody>
+                @foreach ($siswas as $siswa)
+                    <tr class="border border-slate-400">
+                        <td class="p-2">{{ $loop->iteration }}</td>
+                        <td class="hover:bg-violet-200 border border-r border-slate-400 p-2">{{ $siswa->nama }}</td>
+                        @foreach ($absensis as $data)
+                            @if ($data->siswa_id == $siswa->id)
+                                <td class="border border-r border-slate-400 p-2 {{$data->status == 'Hadir' ? 'bg-green-50' : 'bg-red-50'}}">{{ $data->status }}</td>
+                            @endif
+                        @endforeach
+                    </tr>
+                @endforeach
+            </tbody>
+          </table>
+        </div>
       </div>
     </div>
   </main>

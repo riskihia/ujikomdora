@@ -13,7 +13,7 @@
                 <div class="p-4">
                     <ul id="navigationLink" class="space-y-1">
                         <li>
-                            <a href="/absensi" class="flex items-center rounded-xl font-bold text-sm text-yellow-900 py-3 px-4">
+                            <a href="/absensi/walas" class="flex items-center rounded-xl font-bold text-sm text-yellow-900 py-3 px-4">
                             <span>⬆</span> Kelola Absensi
                             </a>
                         </li>

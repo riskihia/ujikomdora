@@ -32,6 +32,7 @@ class AbsensiController extends Controller
         $absensi = Absensi::where("nama_kelas", $walas->kelas)
             ->whereDate('tanggal', now()->toDateString())
             ->first();
+        
         if(!$absensi){
             $siswas = Siswa::all();
             foreach($siswas as $siswa){
@@ -68,6 +69,31 @@ class AbsensiController extends Controller
         ]);
     }
 
+    public function show(){
+        //mendapatkan tanggal
+        $tanggal = Carbon::now()->isoFormat('D MMMM Y');
+        $hari = Carbon::now()->isoFormat('dddd');
+         
+        //mendapat session
+        $nutpk = session("nuptk");
+        $walas = Walas::where("nuptk", $nutpk)->first();
+        $username = $walas->username;
+        
+        $absensis = Absensi::where("nama_kelas", $walas->kelas)
+            ->whereBetween('tanggal', ['2023-12-31', '2024-01-06'])
+            ->get();
+        $siswas = Siswa::all();
+
+
+        return view("pages.dataAbsensiPage", [
+            "username" => $username,
+            "siswas" => $siswas,
+            "absensis" => $absensis,
+            "tanggal" => $tanggal,
+            "hari" => $hari
+        ]);
+    }
+
     public function update(Request $request)
     {
         // dd($request->input());
@@ -89,7 +115,5 @@ class AbsensiController extends Controller
         return redirect('/absensi/walas')->with('pesan', "Data absensi berhasil disimpan");
     }
 
-    public function show(){
-        return response()->view("pages.dataAbsensiPage");
-    }
+    
 }
