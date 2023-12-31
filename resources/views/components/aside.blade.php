@@ -17,6 +17,11 @@
                             <span>⬆</span> Kelola Absensi
                             </a>
                         </li>
+                        <li>
+                            <a href="/absensi/data" class="flex items-center rounded-xl font-bold text-sm text-yellow-900 py-3 px-4">
+                            <span>⬆</span> Data Absensi
+                            </a>
+                        </li>
                         
                     </ul>
                 </div>
