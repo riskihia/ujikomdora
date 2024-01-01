@@ -21,7 +21,11 @@
   <main class="md:ml-60 max-h-screen md:overflow-auto px-6 pb-8">
     <div class="max-w-4xl mx-auto">
       <div class="bg-white rounded-3xl p-8 mb-5">
-        <h1 class="text-3xl font-bold mb-10">Selamat datang Admin</h1>
+        @php
+            $user_email = session('user_email');
+            $username = explode('@', $user_email)[0];
+        @endphp
+        <h1 class="text-3xl font-bold mb-10">Selamat datang {{$username}}</h1>
     
         <div class="flex gap-2">
           <a href="/walas">

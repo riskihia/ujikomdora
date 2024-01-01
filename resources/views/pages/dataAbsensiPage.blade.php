@@ -9,7 +9,11 @@
 </head>
 <body class="h-full">
   
-  @include('components.aside', ['sideIs' => "walas"])
+  @php
+  $side = session()->has('nuptk') ? 'walas' : 'sekretaris';
+@endphp
+@include('components.aside', ['sideIs' => $side])
+  {{-- @include('components.aside', ['sideIs' => "walas"]) --}}
 
   <button id="sidebarButton" class="md:hidden items-center text-blue-600 p-3">
       <svg class="block scale-150 h-4 w-4 fill-current" viewBox="0 0 20 20">
@@ -23,9 +27,20 @@
       <div class="bg-white rounded-3xl p-8 mb-5">
         <h1 class="text-3xl mb-10">Selamat datang <span class="font-bold">{{$username}}</span></h1>
 
-
-        <p class="text-xl">Tanggal : {{$tanggal}}</p>
-        <p class="text-xl">Hari : {{$hari}}</p>
+        <div class="flex justify-between">
+          <div>
+            <p class="text-xl">Tanggal : {{$tanggal}}</p>
+            <p class="text-xl">Hari : {{$hari}}</p>
+          </div>
+          <div>
+            @php
+                $url = url()->current()
+            @endphp
+            <a href="{{ $url }}?isPdf=true">
+              <button class="bg-green-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">Cetak</button>
+            </a>
+          </div>
+        </div>
 
         @if(session()->has('pesan'))
             <div class="bg-green-300 p-3 shadow-lg rounded-md" role="alert">

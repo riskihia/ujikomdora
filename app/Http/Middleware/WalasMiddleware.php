@@ -15,10 +15,26 @@ class WalasMiddleware
      */
     public function handle(Request $request, Closure $next): Response
     {
-        if($request->session()->exists("nuptk")){
-            return $next($request);
-        }else{
-            return redirect("/walas/login");
+
+        $nuptk = $request->session()->get("nuptk");
+        $nis = $request->session()->get("nis");
+
+        
+        // $url = $request->url();
+        // dd([$nuptk, $nis, $url,strpos($url, 'walas') !== false]);
+        // Mengecek apakah kata "walas" ada dalam URL
+        if ($nuptk) {
+            if($request->session()->exists("nuptk")){
+                return $next($request);
+            }else{
+                return redirect("/walas/login");
+            }
+        } else {
+            if($request->session()->exists("nis")){
+                return $next($request);
+            }else{
+                return redirect("/sekretaris/login");
+            }
         }
     }
 }

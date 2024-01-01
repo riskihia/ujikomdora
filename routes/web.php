@@ -28,6 +28,9 @@ Route::post('/login', [AdminController::class, 'loginProses']);
 //login walas
 Route::get('/walas/login', [WalasController::class, 'login']);
 Route::post('/walas/login', [WalasController::class, 'doLogin']);
+//login sekretaris 
+Route::get('/sekretaris/login', [SekretarisController::class, 'login']);
+Route::post('/sekretaris/login', [SekretarisController::class, 'doLogin']);
 
 Route::get('/register', [AdminController::class, 'registerPage'])->name("register");
 Route::post('/register', [AdminController::class, 'registerProses']);
@@ -69,9 +72,13 @@ Route::middleware([OnlyMemberMiddleware::class])->group(function () {
 Route::middleware([WalasMiddleware::class])->group(function () {
     Route::get("/absensi/data/{filter}", [AbsensiController::class, 'show']);
     
+    //sekretaris
     Route::get("/absensi/sekretaris", [AbsensiController::class, 'indexSekretaris']);
+    Route::post("/absensi/sekretaris", [AbsensiController::class, 'update']);
+    Route::post('/sekretaris/logout', [SekretarisController::class, 'logout']);
+        
+    //walas
     Route::get("/absensi/walas", [AbsensiController::class, 'indexWalas']);
     Route::post("/absensi/walas", [AbsensiController::class, 'update']);
     Route::post('/walas/logout', [WalasController::class, 'logout']);
 });
-Route::get('/contoh', [AbsensiController::class, 'contoh']);

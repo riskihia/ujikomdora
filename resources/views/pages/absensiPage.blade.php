@@ -9,7 +9,10 @@
 </head>
 <body class="h-full">
   
-  @include('components.aside', ['sideIs' => "walas"])
+    @php
+        $side = session()->has('nuptk') ? 'walas' : 'sekretaris';
+    @endphp
+  @include('components.aside', ['sideIs' => $side])
 
   <button id="sidebarButton" class="md:hidden items-center text-blue-600 p-3">
       <svg class="block scale-150 h-4 w-4 fill-current" viewBox="0 0 20 20">
@@ -46,8 +49,13 @@
                 </div>
             </div>
             @if (isset($absensi))
-                <form action="/absensi/walas" method="POST">
-                    @csrf
+                @php
+                    $url = url()->current();
+                    $segments = explode('/', $url);
+                    $url = end($segments);
+                @endphp
+                <form action="/absensi/{{$url}}" method="POST">
+                    @csrf 
                     @foreach ($absensi as $absensi_data)
                         <div class="grid grid-cols-12 gap-4 mt-4 hover:bg-slate-100 py-2 px-2">
                             <div class="col-span-5">{{$absensi_data->siswa->nama}}</div>

@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('sekretaris', function (Blueprint $table) {
             $table->id();
-            $table->string('nuptk', 100)->unique()->nullable(false);
+            $table->string('nis', 100)->unique()->nullable(false);
             $table->string('password', 200)->nullable(false);
             $table->string('username', 200)->nullable(true);
             $table->string('alamat')->nullable();

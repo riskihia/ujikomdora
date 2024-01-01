@@ -8,8 +8,7 @@
             <div class="px-4 py-6 text-center border-b">
                 <h1 class="text-xl font-bold leading-none"><span class="text-yellow-700">Citra Negara</span> Presensi</h1>
             </div>
-            @if (isset($sideIs) && $sideIs == "walas")
-                
+            @if (!empty($sideIs) && $sideIs == "walas")
                 <div class="p-4">
                     <ul id="navigationLink" class="space-y-1">
                         <li>
@@ -25,8 +24,18 @@
                         
                     </ul>
                 </div>
+            @elseif(!empty($sideIs) && $sideIs == "sekretaris")
+                <div class="p-4">
+                    <ul id="navigationLink" class="space-y-1">
+                        <li>
+                            <a href="/absensi/sekretaris" class="flex items-center rounded-xl font-bold text-sm text-yellow-900 py-3 px-4">
+                            <span>⬆</span> Kelola Absensi
+                            </a>
+                        </li>
+                        
+                    </ul>
+                </div>
             @else
-                
                 <div class="p-4">
                     <ul id="navigationLink" class="space-y-1">
                         <li class="{{ $side == 'akun' ? 'active' : '' }}">
@@ -54,8 +63,15 @@
             @endif
         </div>
         <div class="p-4">
-            @if (isset($sideIs) && $sideIs == "walas")                       
+            @if (!empty($sideIs) && $sideIs == "walas")                       
                 <form action="/walas/logout" method="post">
+                    @csrf
+                    <button type="submit" class="inline-flex items-center justify-center h-9 px-4 rounded-xl bg-gray-900 text-gray-300 hover:text-white text-sm font-semibold transition">
+                        ⭕<span class="font-bold text-sm ml-2">Logout</span>
+                    </button> 
+                </form>
+            @elseif(!empty($sideIs) && $sideIs == "sekretaris")
+                <form action="/sekretaris/logout" method="post">
                     @csrf
                     <button type="submit" class="inline-flex items-center justify-center h-9 px-4 rounded-xl bg-gray-900 text-gray-300 hover:text-white text-sm font-semibold transition">
                         ⭕<span class="font-bold text-sm ml-2">Logout</span>

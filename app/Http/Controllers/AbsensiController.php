@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Absensi;
+use App\Models\Sekretaris;
 use App\Models\Siswa;
 use App\Models\Walas;
 use Carbon\Carbon;
@@ -13,8 +14,55 @@ class AbsensiController extends Controller
 {
     public function indexSekretaris()
     {
+        //mendapatkan tanggal
+        $tanggal = Carbon::now()->isoFormat('D MMMM Y');
+        $hari = Carbon::now()->isoFormat('dddd');
 
-        return view("pages.absensiPage");
+        $nis = session("nis");
+        $sekretaris = Siswa::where("nis", $nis)->first();
+        $username = $sekretaris->nama;
+
+        $notValidDay = ["Sabtu"];
+        // $notValidDay = ["Sabtu", "Minggu"];
+
+        $absensi = Absensi::where("nama_kelas", $sekretaris->kelas)
+            ->whereDate('tanggal', now()->toDateString())
+            ->first();
+        
+        if(!$absensi){
+            $siswas = Siswa::all();
+            foreach($siswas as $siswa){
+                $siswa->absensis()->create([
+                    "nama_kelas" => $sekretaris->kelas
+                ]);
+            }
+        }
+
+        $absensi = Absensi::where("nama_kelas", $sekretaris->kelas)
+            ->whereDate('tanggal', now()->toDateString())
+            ->first();
+
+        $carbonHari = Carbon::createFromFormat('Y-m-d', $absensi->tanggal);
+        $hari = $carbonHari->isoFormat('dddd');
+
+        if(in_array($hari, $notValidDay)){
+            return view("pages.absensiPage", [
+                "username" => $username,
+                "hari" => $hari,
+                "tanggal" => $tanggal,
+                "hari" => $hari
+            ]);
+        }
+        
+        $absensi = Absensi::where("nama_kelas", $sekretaris->kelas)
+            ->whereDate('tanggal', now()->toDateString())
+            ->get();
+        return view("pages.absensiPage", [
+            "username" => $username,
+            "absensi" => $absensi,
+            "tanggal" => $tanggal,
+            "hari" => $hari
+        ]);
     }
 
     public function indexWalas(Request $request)
@@ -85,7 +133,15 @@ class AbsensiController extends Controller
 
         //mendapat session
         $nutpk = session("nuptk");
-        $walas = Walas::where("nuptk", $nutpk)->first();
+        $nis = session("nis");
+        if($nutpk){
+            $model = Walas::where("nuptk", $nutpk)->first();
+            $username = $model->username;
+        }else{
+            $model = Siswa::where("nis", $nis)->first();
+            $username = $model->nama;
+        }
+
         $siswas = Siswa::all();
 
         //mendapatkan tanggal
@@ -94,7 +150,7 @@ class AbsensiController extends Controller
 
         if($filter == "hari-ini"){
             $today = Carbon::now()->toDateString();
-            $absensis = Absensi::where("nama_kelas", $walas->kelas)
+            $absensis = Absensi::where("nama_kelas", $model->kelas)
                 ->where('tanggal', $today)
                 ->get();
         }
@@ -102,7 +158,7 @@ class AbsensiController extends Controller
             $startOfWeek = Carbon::now()->startOfWeek()->toDateString();
             $endOfWeek = Carbon::now()->endOfWeek()->toDateString();
 
-            $absensis = Absensi::where("nama_kelas", $walas->kelas)
+            $absensis = Absensi::where("nama_kelas", $model->kelas)
                 ->whereBetween('tanggal', [$startOfWeek, $endOfWeek])
                 ->get();
         }
@@ -110,7 +166,7 @@ class AbsensiController extends Controller
             $startOfMonth = Carbon::now()->startOfMonth()->toDateString();
             $endOfMonth = Carbon::now()->endOfMonth()->toDateString();
         
-            $absensis = Absensi::where("nama_kelas", $walas->kelas)
+            $absensis = Absensi::where("nama_kelas", $model->kelas)
                 ->whereBetween('tanggal', [$startOfMonth, $endOfMonth])
                 ->get();
         }
@@ -127,7 +183,7 @@ class AbsensiController extends Controller
         }
 
         return view("pages.dataAbsensiPage", [
-            "username" => $walas->username,
+            "username" => $username,
             "siswas" => $siswas,
             "absensis" => $absensis,
             "tanggal" => $tanggal,
@@ -158,7 +214,11 @@ class AbsensiController extends Controller
             ]);
         }
 
-        return redirect('/absensi/walas')->with('pesan', "Data absensi berhasil disimpan");
+        if(session()->has('nuptk')){
+            return redirect('/absensi/walas')->with('pesan', "Data absensi berhasil disimpan");
+        }else{
+            return redirect('/absensi/sekretaris')->with('pesan', "Data absensi berhasil disimpan");
+        }
     }
 
     public function contoh()

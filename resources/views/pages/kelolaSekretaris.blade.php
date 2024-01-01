@@ -58,7 +58,7 @@
                             No
                         </th>
                         <th scope="col" class="px-6 py-3">
-                            NUPTK
+                            NIS
                         </th>
                         <th scope="col" class="px-6 py-3">
                             Username
@@ -79,7 +79,7 @@
                             {{ $loop->iteration }} {{-- Display the loop iteration as the No --}}
                         </th>
                         <td class="px-6 py-4">
-                            {{ $sekretaris_item->nuptk }}
+                            {{ $sekretaris_item->nis }}
                         </td>
                         <td class="px-6 py-4">
                             {{ $sekretaris_item->username }}
@@ -123,9 +123,9 @@
               @csrf 
                 
               <div>
-                <label for="nuptk" class="block text-sm font-medium leading-6 text-gray-900">NUPTK</label>
+                <label for="nis" class="block text-sm font-medium leading-6 text-gray-900">NIS</label>
                 <div class="mt-2">
-                  <input id="nuptk" name="nuptk" type="text" required class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6">
+                  <input id="nis" name="nis" type="text" required class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6">
                 </div>
               </div>
 

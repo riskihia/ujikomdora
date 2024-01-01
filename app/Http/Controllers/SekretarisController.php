@@ -3,17 +3,52 @@
 namespace App\Http\Controllers;
 
 use App\Models\Sekretaris;
+use App\Models\Siswa;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 
 class SekretarisController extends Controller
 {
+    public function login()
+    {
+        return view("auth.sekretarisLogin");
+    }
+    public function doLogin(Request $request)
+    {
+        $validator = Validator::make($request->all(), [
+            'nis' => 'required|string',
+            'password' => 'required',
+        ]);
+        if ($validator->fails()) {
+            return back()->withErrors($validator)->withInput();
+        }
+        $nis = $request->input("nis");
+        $password = $request->input("password");
+
+        $sekretaris = Sekretaris::where("nis", $nis)->first();
+        if(!$sekretaris){
+            return redirect("/sekretaris/login")->withErrors([
+                'error' => 'User tidak valid',
+            ]);
+        }
+
+        
+        if (!Hash::check($password, $sekretaris->password)) {
+            return redirect("/sekretaris/login")->withErrors([
+                'error' => 'User tidak valid',
+            ]);
+        }
+
+        $request->session()->put("nis", $nis);
+        
+        return redirect("/absensi/sekretaris");
+    }
     //
     public function createSekretaris(Request $request)
     {
        $validator = Validator::make($request->all(), [
-            'nuptk' => 'required',
+            'nis' => 'required',
             'username' => 'required|string',
             'password' => 'required|string',
        ]);
@@ -22,19 +57,29 @@ class SekretarisController extends Controller
             return back()->withErrors($validator)->withInput();
         }
 
-        $nuptk = $request->input("nuptk");
+        $nis = $request->input("nis");
         $password = $request->input("password");
         $username = $request->input("username");
 
-        $sekretaris = Sekretaris::where("nuptk", $nuptk)->first();
+        
+        //periksa apakah ada siswa dgn nis tersebut
+        $siswa = Siswa::where("nis", $nis)->first();
+        if(!$siswa){
+            return redirect('/sekretaris')->withErrors([
+                "error" => "Data sekretaris tidak valid"
+            ]);
+        }
+
+        //periksa apakah sudah ada sekretaris
+        $sekretaris = Sekretaris::where("nis", $nis)->first();
         if($sekretaris){
-            return redirect()->route('/sekretaris')->withErrors([
+            return redirect('/sekretaris')->withErrors([
                 "error" => "Data sekretaris tidak valid"
             ]);
         }
 
         $sekretaris = new Sekretaris();
-        $sekretaris->nuptk = $nuptk;
+        $sekretaris->nis = $nis;
         $sekretaris->username = $username;
         $sekretaris->password = Hash::make($password);
         $sekretaris->save();
@@ -91,5 +136,14 @@ class SekretarisController extends Controller
         return view("pages.kelolaSekretaris", [
             "sekretaris" => $sekretaris
         ]);
+    }
+
+    public function logout(Request $request)
+    {
+        // Clear the user's session
+        $request->session()->forget('nis');
+
+        // Redirect to the login page
+        return redirect('/sekretaris/login');
     }
 }

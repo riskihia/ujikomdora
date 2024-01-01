@@ -84,6 +84,8 @@ class AdminController extends Controller
         $user->username = $username;
         $user->password = Hash::make($password);
         $user->save();
+
+        $request->session()->put("user_email", $email);
         
         return redirect()->route("dashboard");
     }
