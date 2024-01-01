@@ -64,8 +64,6 @@ Route::middleware([OnlyMemberMiddleware::class])->group(function () {
     Route::get('/bk', [BkController::class, 'bkPage']);
     Route::get('/sekretaris', [SekretarisController::class, 'sekretarisPage']);
     Route::get('/siswa',[SiswaController::class,'index']);
-
-
 });
 
 Route::middleware([WalasMiddleware::class])->group(function () {
@@ -76,3 +74,4 @@ Route::middleware([WalasMiddleware::class])->group(function () {
     Route::post("/absensi/walas", [AbsensiController::class, 'update']);
     Route::post('/walas/logout', [WalasController::class, 'logout']);
 });
+Route::get('/contoh', [AbsensiController::class, 'contoh']);

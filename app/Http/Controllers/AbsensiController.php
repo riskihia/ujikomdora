@@ -80,6 +80,9 @@ class AbsensiController extends Controller
             return redirect('/absensi/walas');
         }
 
+        //mendapatkan query string
+        $isPdf = $request->query('isPdf');
+
         //mendapat session
         $nutpk = session("nuptk");
         $walas = Walas::where("nuptk", $nutpk)->first();
@@ -110,6 +113,17 @@ class AbsensiController extends Controller
             $absensis = Absensi::where("nama_kelas", $walas->kelas)
                 ->whereBetween('tanggal', [$startOfMonth, $endOfMonth])
                 ->get();
+        }
+
+        if($isPdf){
+            $mpdf = new \Mpdf\Mpdf();
+            $mpdf->WriteHTML(view("pdf.absensi", [
+                "siswas" => $siswas,
+                "absensis" => $absensis
+            ]));
+
+            // Output a PDF file directly to the browser
+            $mpdf->Output();
         }
 
         return view("pages.dataAbsensiPage", [
@@ -147,5 +161,16 @@ class AbsensiController extends Controller
         return redirect('/absensi/walas')->with('pesan', "Data absensi berhasil disimpan");
     }
 
+    public function contoh()
+    {
+        // Create an instance of the class:
+        $mpdf = new \Mpdf\Mpdf();
+
+        // Write some HTML code:
+        $mpdf->WriteHTML('Hello World');
+
+        // Output a PDF file directly to the browser
+        $mpdf->Output();
+    }
     
 }

@@ -25,7 +25,7 @@ class SiswaSeeder extends Seeder
         //     "jenis_kelamin" => "wanita",
         //     "kelas" => "rpl1"
         // ]);
-        for ($i = 1; $i <= 10; $i++) {
+        for ($i = 1; $i <= 33; $i++) {
             Siswa::create([
                 "nis" => "NIS" . $i,
                 "nama" => "Siswa " . $i,

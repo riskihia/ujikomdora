@@ -23,7 +23,7 @@ class AbsensiSeeder extends Seeder
         foreach ($siswas as $siswa) {
             $currentDate = Carbon::parse('2023-12-31');
             
-            while ($currentDate->lte(Carbon::parse('2024-01-06'))) {
+            while ($currentDate->lte(Carbon::parse('2024-02-06'))) {
                 $siswa->absensis()->create([
                     'nama_kelas' => 'rpl1',
                     'tanggal' => $currentDate->toDateString(),
