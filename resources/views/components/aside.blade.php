@@ -8,7 +8,7 @@
             <div class="px-4 py-6 text-center border-b">
                 <h1 class="text-xl font-bold leading-none"><span class="text-yellow-700">Citra Negara</span> Presensi</h1>
             </div>
-            @if (isset($sideIs) && $sideIs == "sekretaris")
+            @if (isset($sideIs) && $sideIs == "walas")
                 
                 <div class="p-4">
                     <ul id="navigationLink" class="space-y-1">
@@ -54,12 +54,21 @@
             @endif
         </div>
         <div class="p-4">
-            <form action="{{ route('logout') }}" method="post">
-                @csrf
-                <button type="submit" class="inline-flex items-center justify-center h-9 px-4 rounded-xl bg-gray-900 text-gray-300 hover:text-white text-sm font-semibold transition">
-                    ⭕<span class="font-bold text-sm ml-2">Logout</span>
-                </button> 
-            </form>
+            @if (isset($sideIs) && $sideIs == "walas")                       
+                <form action="/walas/logout" method="post">
+                    @csrf
+                    <button type="submit" class="inline-flex items-center justify-center h-9 px-4 rounded-xl bg-gray-900 text-gray-300 hover:text-white text-sm font-semibold transition">
+                        ⭕<span class="font-bold text-sm ml-2">Logout</span>
+                    </button> 
+                </form>
+            @else
+                <form action="{{ route('logout') }}" method="post">
+                    @csrf
+                    <button type="submit" class="inline-flex items-center justify-center h-9 px-4 rounded-xl bg-gray-900 text-gray-300 hover:text-white text-sm font-semibold transition">
+                        ⭕<span class="font-bold text-sm ml-2">Logout</span>
+                    </button> 
+                </form>
+            @endif
         </div>
     </div>
 </aside>

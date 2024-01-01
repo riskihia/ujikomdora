@@ -128,4 +128,13 @@ class WalasController extends Controller
             "walas" => $walas
         ]);
     }
+
+    public function logout(Request $request)
+    {
+        // Clear the user's session
+        $request->session()->forget('nuptk');
+
+        // Redirect to the login page
+        return redirect('/walas/login');
+    }
 }

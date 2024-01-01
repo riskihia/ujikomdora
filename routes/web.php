@@ -74,4 +74,5 @@ Route::middleware([WalasMiddleware::class])->group(function () {
     Route::get("/absensi/sekretaris", [AbsensiController::class, 'indexSekretaris']);
     Route::get("/absensi/walas", [AbsensiController::class, 'indexWalas']);
     Route::post("/absensi/walas", [AbsensiController::class, 'update']);
+    Route::post('/walas/logout', [WalasController::class, 'logout']);
 });
