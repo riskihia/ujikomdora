@@ -69,7 +69,7 @@ Route::middleware([OnlyMemberMiddleware::class])->group(function () {
 });
 
 Route::middleware([WalasMiddleware::class])->group(function () {
-    Route::get("/absensi/data", [AbsensiController::class, 'show']);
+    Route::get("/absensi/data/{filter}", [AbsensiController::class, 'show']);
     
     Route::get("/absensi/sekretaris", [AbsensiController::class, 'indexSekretaris']);
     Route::get("/absensi/walas", [AbsensiController::class, 'indexWalas']);

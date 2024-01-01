@@ -34,6 +34,19 @@
         @endif
         <hr class="my-4">
 
+        {{-- button filter day, week,month --}}
+        <div class="flex gap-2">
+          <a href="/absensi/data/hari-ini">
+            <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">Hari ini</button>
+          </a>
+          <a href="/absensi/data/minggu">
+            <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">Minggu</button>
+          </a>
+          <a href="/absensi/data/bulan">
+            <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">Bulan</button>
+          </a>
+        </div>
+
         {{-- Data absensi --}}
         <h1 class="text-2xl text-center">Data absensi</h1>
 
