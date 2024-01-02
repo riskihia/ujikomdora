@@ -130,6 +130,7 @@ class AbsensiController extends Controller
 
         //mendapatkan query string
         $isPdf = $request->query('isPdf');
+        $isShowBulan = false; //var bantu untuk render bulan di pdf
 
         //mendapat session
         $nutpk = session("nuptk");
@@ -169,13 +170,15 @@ class AbsensiController extends Controller
             $absensis = Absensi::where("nama_kelas", $model->kelas)
                 ->whereBetween('tanggal', [$startOfMonth, $endOfMonth])
                 ->get();
+                $isShowBulan = true;
         }
 
         if($isPdf){
             $mpdf = new \Mpdf\Mpdf();
             $mpdf->WriteHTML(view("pdf.absensi", [
                 "siswas" => $siswas,
-                "absensis" => $absensis
+                "absensis" => $absensis,
+                "isShowBulan" => $isShowBulan 
             ]));
 
             // Output a PDF file directly to the browser
