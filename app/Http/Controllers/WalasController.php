@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Siswa;
 use App\Models\Walas;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
@@ -126,6 +127,41 @@ class WalasController extends Controller
         $walas = Walas::all();
         return view("pages.kelolaWalas", [
             "walas" => $walas
+        ]);
+    }
+
+    public function pesanWalas(Request $request)
+    {
+        $siswas = Siswa::all();
+
+        $data = [];
+
+        foreach ($siswas as $siswa) {
+            // dd($siswa->absensis);
+            $counter = 0;
+            foreach($siswa->absensis as $absen){
+                if($absen->status == "Tidak Hadir"){
+                    $counter++;
+                    if($counter >= 3){
+                        echo "Tidak Hadir |";
+                        $counter = 0;
+                    }
+                }
+            }
+            dd("selesai");
+        }
+        // foreach($siswa->absensis as $absen){
+            
+        // }
+        
+        //mendapat session
+        $nutpk = session("nuptk");
+        if($nutpk){
+            $model = Walas::where("nuptk", $nutpk)->first();
+            $username = $model->username;
+        }
+        return response()->view("pages.pesanWalas",[
+            "username" => $username
         ]);
     }
 

@@ -11,14 +11,19 @@
             @if (!empty($sideIs) && $sideIs == "walas")
                 <div class="p-4">
                     <ul id="navigationLink" class="space-y-1">
-                        <li>
+                        <li class="{{ $side == 'absen' ? 'active' : '' }}">
                             <a href="/absensi/walas" class="flex items-center rounded-xl font-bold text-sm text-yellow-900 py-3 px-4">
                             <span>⬆</span> Kelola Absensi
                             </a>
                         </li>
-                        <li>
+                        <li class="{{ $side == 'data' ? 'active' : '' }}">
                             <a href="/absensi/data/hari-ini" class="flex items-center rounded-xl font-bold text-sm text-yellow-900 py-3 px-4">
                             <span>⬆</span> Data Absensi
+                            </a>
+                        </li>
+                        <li class="{{ $side == 'pesan' ? 'active' : '' }}">
+                            <a href="/walas/pesan" class="flex items-center rounded-xl font-bold text-sm text-yellow-900 py-3 px-4">
+                            <span>⬆</span> Kelola Pesan
                             </a>
                         </li>
                         
@@ -53,11 +58,11 @@
                             <span>⬆</span> Kelola data siswa
                             </a>
                         </li>
-                        <li>
+                        {{-- <li>
                             <a href="" class="flex items-center rounded-xl font-bold text-sm text-yellow-900 py-3 px-4">
                             <span>⬆</span> Kelola Pesan
                             </a>
-                        </li>
+                        </li> --}}
                     </ul>
                 </div>
             @endif

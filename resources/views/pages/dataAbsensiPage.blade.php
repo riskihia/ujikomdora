@@ -11,8 +11,8 @@
   
   @php
   $side = session()->has('nuptk') ? 'walas' : 'sekretaris';
-@endphp
-@include('components.aside', ['sideIs' => $side])
+  @endphp
+@include('components.aside', ['sideIs' => $side, 'side' => 'data'])
   {{-- @include('components.aside', ['sideIs' => "walas"]) --}}
 
   <button id="sidebarButton" class="md:hidden items-center text-blue-600 p-3">
