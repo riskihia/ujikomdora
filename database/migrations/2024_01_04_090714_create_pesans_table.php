@@ -16,10 +16,10 @@ return new class extends Migration
 
             $table->string("pesan");
 
-            $table->unsignedBigInteger('walas_id');
+            $table->unsignedBigInteger('walas_id')->nullable();
             $table->foreign('walas_id')->references('id')->on('walas')->onDelete('cascade');
             
-            $table->unsignedBigInteger('bk_id');
+            $table->unsignedBigInteger('bk_id')->nullable();
             $table->foreign('bk_id')->references('id')->on('bks')->onDelete('cascade');
             
             $table->softDeletes();

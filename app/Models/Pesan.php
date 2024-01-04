@@ -11,6 +11,10 @@ class Pesan extends Model
 {
     use HasFactory, SoftDeletes;
 
+    protected $fillable = [
+        "pesan",
+    ];
+
     public function walas():BelongsTo
     {
         return $this->belongsTo(Walas::class, "walas_id", "id");

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Pesan;
 use App\Models\Siswa;
 use App\Models\Walas;
 use Illuminate\Http\Request;
@@ -132,36 +133,50 @@ class WalasController extends Controller
 
     public function pesanWalas(Request $request)
     {
-        $siswas = Siswa::all();
-
-        $data = [];
-
-        foreach ($siswas as $siswa) {
-            // dd($siswa->absensis);
-            $counter = 0;
-            foreach($siswa->absensis as $absen){
-                if($absen->status == "Tidak Hadir"){
-                    $counter++;
-                    if($counter >= 3){
-                        echo "Tidak Hadir |";
-                        $counter = 0;
-                    }
-                }
-            }
-            dd("selesai");
-        }
-        // foreach($siswa->absensis as $absen){
-            
-        // }
-        
         //mendapat session
         $nutpk = session("nuptk");
         if($nutpk){
-            $model = Walas::where("nuptk", $nutpk)->first();
-            $username = $model->username;
+            $walas = Walas::where("nuptk", $nutpk)->first();
+            $username = $walas->username;
         }
+
+        $siswas = Siswa::all();
+
+        $pesan = [];
+        foreach($siswas as $siswa){
+            $counter = 0;
+            foreach($siswa->absensis as $data){
+                if($data->status == "Tidak Hadir"){
+                    $counter++;
+                }
+                if($data->status == "Tidak Hadir" && $counter > 0){
+                    if($counter >= 3){
+                        $siswa = Siswa::where("id", $data->siswa_id)->first();
+                        $dataPesan = "$siswa->nama Tidak dalam 3 hari pada tanggal $data->tanggal";
+                        
+                        $pesan = Pesan::where("walas_id", $walas->id)
+                            ->where("pesan", $dataPesan)
+                            ->first();
+
+                        if(!$pesan){
+                            $walas->pesans()->create([
+                                "pesan" =>  $dataPesan
+                            ]);
+                        }
+                        $counter = 0;
+                    }
+                    continue;
+                }
+                $counter = 0;
+            }
+            $pesan = [];
+        }
+
+        $pesans = $walas->pesans()->get();
+
         return response()->view("pages.pesanWalas",[
-            "username" => $username
+            "username" => $username,
+            "pesans" => $pesans
         ]);
     }
 

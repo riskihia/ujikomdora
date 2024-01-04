@@ -24,9 +24,21 @@
     <div class="max-w-4xl mx-auto">
       <div class="bg-white rounded-3xl p-8 mb-5">
         <h1 class="text-3xl font-bold mb-10">Selamat datang {{$username}}</h1>
+        
         <hr class="my-10">
 
-        <h1>Pesan</h1>
+        {{-- PESAN --}}
+        <div class="flex flex-col gap-2">
+          @foreach ($pesans as $pesan)
+              
+            <div class="bg-blue-100 border-t border-b border-blue-500 text-blue-700 px-4 py-3" role="alert">
+              <p class="font-bold">Informational message</p>
+              <p class="text-sm">{{$pesan->pesan}}</p>
+            </div>
+          @endforeach
+        </div>
+
+        
       </div>
     </div>
   </main>
