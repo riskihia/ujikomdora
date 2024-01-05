@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Absensi;
+use App\Models\Bk;
 use App\Models\Sekretaris;
 use App\Models\Siswa;
 use App\Models\Walas;
@@ -137,6 +138,9 @@ class AbsensiController extends Controller
         $nis = session("nis");
         if($nutpk){
             $model = Walas::where("nuptk", $nutpk)->first();
+            if(!$model){
+                $model = Bk::where("nuptk", $nutpk)->first();
+            }
             $username = $model->username;
         }else{
             $model = Siswa::where("nis", $nis)->first();
@@ -145,21 +149,25 @@ class AbsensiController extends Controller
 
         $siswas = Siswa::all();
 
+        //dapatkan data kelas
+        $kelas = $model->kelas ??  $request->input('kelas') ?? 'rpl1';
+
         //mendapatkan tanggal
         $tanggal = Carbon::now()->isoFormat('D MMMM Y');
         $hari = Carbon::now()->isoFormat('dddd');
 
         if($filter == "hari-ini"){
             $today = Carbon::now()->toDateString();
-            $absensis = Absensi::where("nama_kelas", $model->kelas)
+            $absensis = Absensi::where("nama_kelas",$kelas)
                 ->where('tanggal', $today)
                 ->get();
         }
+        
         if($filter == "minggu"){
             $startOfWeek = Carbon::now()->startOfWeek()->toDateString();
             $endOfWeek = Carbon::now()->endOfWeek()->toDateString();
 
-            $absensis = Absensi::where("nama_kelas", $model->kelas)
+            $absensis = Absensi::where("nama_kelas",$kelas )
                 ->whereBetween('tanggal', [$startOfWeek, $endOfWeek])
                 ->get();
         }
@@ -167,7 +175,7 @@ class AbsensiController extends Controller
             $startOfMonth = Carbon::now()->startOfMonth()->toDateString();
             $endOfMonth = Carbon::now()->endOfMonth()->toDateString();
         
-            $absensis = Absensi::where("nama_kelas", $model->kelas)
+            $absensis = Absensi::where("nama_kelas",$kelas )
                 ->whereBetween('tanggal', [$startOfMonth, $endOfMonth])
                 ->get();
                 $isShowBulan = true;
@@ -190,7 +198,8 @@ class AbsensiController extends Controller
             "siswas" => $siswas,
             "absensis" => $absensis,
             "tanggal" => $tanggal,
-            "hari" => $hari
+            "hari" => $hari,
+            "kelas" => $kelas,
         ]);
     }
 

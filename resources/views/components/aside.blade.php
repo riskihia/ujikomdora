@@ -29,10 +29,34 @@
                         
                     </ul>
                 </div>
+            @elseif(!empty($sideIs) && $sideIs == "bk")
+                <div class="p-4">
+                    <ul id="navigationLink" class="space-y-1">
+                        <form action="/absensi/data/hari-ini" method="get">
+                            @csrf
+                            <li class="{{ $kelas == 'rpl1' ? 'active' : '' }}">
+                                <input type="hidden" name="kelas" value="rpl1">
+                                <button type="submit" class="flex items-center rounded-xl font-bold text-sm text-yellow-900 py-3 px-4">
+                                <span>⬆</span> Data Absensi RPL1
+                                </button>
+                            </li>                        
+                        </form>
+                        <form action="/absensi/data/hari-ini" method="get">
+                            @csrf
+                            <li class="{{ $kelas == 'rpl2' ? 'active' : '' }}">
+                                <input type="hidden" name="kelas" value="rpl2">
+                                <button type="submit" class="flex items-center rounded-xl font-bold text-sm text-yellow-900 py-3 px-4">
+                                <span>⬆</span> Data Absensi RPL2
+                                </button>
+                            </li>                        
+                        </form>                     
+                                             
+                    </ul>
+                </div>
             @elseif(!empty($sideIs) && $sideIs == "sekretaris")
                 <div class="p-4">
                     <ul id="navigationLink" class="space-y-1">
-                        <li>
+                        <li class="active">
                             <a href="/absensi/sekretaris" class="flex items-center rounded-xl font-bold text-sm text-yellow-900 py-3 px-4">
                             <span>⬆</span> Kelola Absensi
                             </a>

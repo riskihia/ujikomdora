@@ -21,6 +21,12 @@ use Illuminate\Support\Facades\Route;
 | be assigned to the "web" middleware group. Make something great!
 |
 */
+
+// Selamat datang
+
+Route::get('/', [AdminController::class, 'dashboard'])->name("dashboard");
+
+
 //login admin
 Route::get('/login', [AdminController::class, 'loginPage'])->name("login");
 Route::post('/login', [AdminController::class, 'loginProses']);
@@ -28,6 +34,9 @@ Route::post('/login', [AdminController::class, 'loginProses']);
 //login walas
 Route::get('/walas/login', [WalasController::class, 'login']);
 Route::post('/walas/login', [WalasController::class, 'doLogin']);
+//login bk
+Route::get('/bk/login', [BkController::class, 'login']);
+Route::post('/bk/login', [BkController::class, 'doLogin']);
 //login sekretaris 
 Route::get('/sekretaris/login', [SekretarisController::class, 'login']);
 Route::post('/sekretaris/login', [SekretarisController::class, 'doLogin']);
@@ -36,7 +45,6 @@ Route::get('/register', [AdminController::class, 'registerPage'])->name("registe
 Route::post('/register', [AdminController::class, 'registerProses']);
 
 Route::middleware([OnlyMemberMiddleware::class])->group(function () {
-    Route::get('/', [AdminController::class, 'dashboard'])->name("dashboard")->middleware([OnlyMemberMiddleware::class]);
     Route::post('/logout', [AdminController::class, 'logoutProses'])->name('logout');
 
     
@@ -83,4 +91,5 @@ Route::middleware([WalasMiddleware::class])->group(function () {
     Route::post('/walas/logout', [WalasController::class, 'logout']);
 
     Route::get('/walas/pesan', [WalasController::class, 'pesanWalas']);
+    Route::delete('/walas/pesan', [WalasController::class, 'deleteWalasPesan']);
 });

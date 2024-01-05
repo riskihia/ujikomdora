@@ -32,8 +32,20 @@
           @foreach ($pesans as $pesan)
               
             <div class="bg-blue-100 border-t border-b border-blue-500 text-blue-700 px-4 py-3" role="alert">
-              <p class="font-bold">Informational message</p>
-              <p class="text-sm">{{$pesan->pesan}}</p>
+              <div>
+                <p class="font-bold">Informational message</p>
+                <p class="text-sm">{{$pesan->pesan}}</p>
+              </div>
+              {{-- @dd($pesan->id) --}}
+              <form action="/walas/pesan" method="POST">
+                @method('DELETE')
+                @csrf
+                <input type="hidden" name="pesan_id" value={{$pesan->id}}>
+                <button type="submit" class="bg-red-500 text-white px-4 py-2 rounded-md">
+                  hapus
+                </button>
+              </form>
+              
             </div>
           @endforeach
         </div>

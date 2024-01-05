@@ -180,6 +180,16 @@ class WalasController extends Controller
         ]);
     }
 
+    public function deleteWalasPesan(Request $request)
+    {
+        $pesan_id = $request->input("pesan_id");
+        $pesan = Pesan::where("id", $pesan_id)->first();
+
+        $pesan->delete();
+
+        return redirect("/walas/pesan");
+    }
+
     public function logout(Request $request)
     {
         // Clear the user's session

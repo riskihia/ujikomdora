@@ -9,6 +9,41 @@ use Illuminate\Support\Facades\Validator;
 
 class BkController extends Controller
 {
+    public function login()
+    {
+        return view("auth.bkLogin");
+    }
+    public function doLogin(Request $request)
+    {
+        $validator = Validator::make($request->all(), [
+            'nuptk' => 'required|string',
+            'password' => 'required',
+        ]);
+        if ($validator->fails()) {
+            return back()->withErrors($validator)->withInput();
+        }
+        $nuptk = $request->input("nuptk");
+        $password = $request->input("password");
+
+        $bk = Bk::where("nuptk", $nuptk)->first();
+        if(!$bk){
+            return redirect("/bk/login")->withErrors([
+                'error' => 'User tidak valid',
+            ]);
+        }
+        
+        if (!Hash::check($password, $bk->password)) {
+            return redirect("/bk/login")->withErrors([
+                'error' => 'User tidak valid',
+            ]);
+        }
+
+        $request->session()->put("nuptk", $nuptk);
+        $request->session()->put("side", "bk");
+        
+        return redirect("/absensi/data/hari-ini");
+    }
+
     public function createBk(Request $request)
     {
        $validator = Validator::make($request->all(), [
@@ -50,7 +85,8 @@ class BkController extends Controller
         return redirect("bk")->with('pesan', "Hapus data $bk->username berhasil");
     }
     
-    public function editBk($id){
+    public function editBk($id)
+    {
         $bk_id = $id;
         $bk = Bk::where("id", $bk_id)->first();
         return view("pages.editPageBk", [

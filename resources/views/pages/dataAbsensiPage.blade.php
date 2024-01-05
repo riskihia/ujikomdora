@@ -9,10 +9,14 @@
 </head>
 <body class="h-full">
   
-  @php
-  $side = session()->has('nuptk') ? 'walas' : 'sekretaris';
-  @endphp
-@include('components.aside', ['sideIs' => $side, 'side' => 'data'])
+    @php
+    $side = session()->has('side') ? session()->get('side') : false;
+    if(!$side){
+      $side = session()->has('nuptk') ? 'walas' : 'sekretaris';
+    }
+    @endphp
+
+  @include('components.aside', ['sideIs' => $side, 'side' => 'data', 'kelas' => $kelas])
   {{-- @include('components.aside', ['sideIs' => "walas"]) --}}
 
   <button id="sidebarButton" class="md:hidden items-center text-blue-600 p-3">
@@ -51,15 +55,27 @@
 
         {{-- button filter day, week,month --}}
         <div class="flex gap-2">
-          <a href="/absensi/data/hari-ini">
-            <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">Hari ini</button>
-          </a>
-          <a href="/absensi/data/minggu">
-            <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">Minggu</button>
-          </a>
-          <a href="/absensi/data/bulan">
-            <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">Bulan</button>
-          </a>
+          <form action="/absensi/data/hari-ini" method="get">
+            @csrf
+            <input type="hidden" name="kelas" value="{{$kelas}}">        
+            <button type="submit">
+              <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">Hari ini</button>
+            </button>
+          </form>
+          <form action="/absensi/data/minggu" method="get">
+            @csrf
+            <input type="hidden" name="kelas" value="{{$kelas}}">
+            <button type="submit">
+              <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">Minggu</button>
+            </button>
+          </form>
+          <form action="/absensi/data/bulan" method="get">
+            @csrf
+            <input type="hidden" name="kelas" value="{{$kelas}}">
+            <button type="submit">
+              <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">Bulan</button>
+            </button>
+          </form>
         </div>
 
         {{-- Data absensi --}}

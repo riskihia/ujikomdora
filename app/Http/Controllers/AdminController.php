@@ -14,7 +14,7 @@ class AdminController extends Controller
 {
     public function dashboard()
     {
-        return redirect("/walas");
+        return response()->view("dashboard");
     }
 
     public function loginPage()
