@@ -22,6 +22,7 @@ class AbsensiController extends Controller
         $nis = session("nis");
         $sekretaris = Siswa::where("nis", $nis)->first();
         $username = $sekretaris->nama;
+        $kelas = $sekretaris->kelas;
 
         $notValidDay = ["Sabtu"];
         // $notValidDay = ["Sabtu", "Minggu"];
@@ -49,9 +50,9 @@ class AbsensiController extends Controller
         if(in_array($hari, $notValidDay)){
             return view("pages.absensiPage", [
                 "username" => $username,
+                "kelas" => $kelas,
                 "hari" => $hari,
                 "tanggal" => $tanggal,
-                "hari" => $hari
             ]);
         }
         
@@ -61,6 +62,7 @@ class AbsensiController extends Controller
         return view("pages.absensiPage", [
             "username" => $username,
             "absensi" => $absensi,
+            "kelas" => $kelas,
             "tanggal" => $tanggal,
             "hari" => $hari
         ]);
@@ -103,6 +105,7 @@ class AbsensiController extends Controller
             return view("pages.absensiPage", [
                 "username" => $username,
                 "hari" => $hari,
+                "kelas" => $walas->kelas,
                 "tanggal" => $tanggal,
                 "hari" => $hari
             ]);
@@ -114,12 +117,13 @@ class AbsensiController extends Controller
         return view("pages.absensiPage", [
             "username" => $username,
             "absensi" => $absensi,
+            "kelas" => $walas->kelas,
             "tanggal" => $tanggal,
             "hari" => $hari
         ]);
     }
 
-    public function show(Request $request, $filter)
+    public function show(Request $request, $kelas, $filter)
     {
         $validator = Validator::make(['filter' => $filter], [
             'filter' => 'required|in:hari-ini,minggu,bulan',
@@ -135,8 +139,12 @@ class AbsensiController extends Controller
 
         //mendapat session
         $nutpk = session("nuptk");
+        $admin = session("user_email");
         $nis = session("nis");
-        if($nutpk){
+        if($admin){
+            $username = session()->get('user_email');
+            $request->session()->put("side", "bk");
+        }elseif($nutpk){
             $model = Walas::where("nuptk", $nutpk)->first();
             if(!$model){
                 $model = Bk::where("nuptk", $nutpk)->first();
@@ -147,10 +155,7 @@ class AbsensiController extends Controller
             $username = $model->nama;
         }
 
-        $siswas = Siswa::all();
-
-        //dapatkan data kelas
-        $kelas = $model->kelas ??  $request->input('kelas') ?? 'rpl1';
+        $siswas = Siswa::where("kelas",$kelas)->get();
 
         //mendapatkan tanggal
         $tanggal = Carbon::now()->isoFormat('D MMMM Y');

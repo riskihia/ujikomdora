@@ -138,9 +138,10 @@ class WalasController extends Controller
         if($nutpk){
             $walas = Walas::where("nuptk", $nutpk)->first();
             $username = $walas->username;
+            $kelas = $walas->kelas;
         }
 
-        $siswas = Siswa::all();
+        $siswas = Siswa::where("kelas", $kelas)->get();
 
         $pesan = [];
         foreach($siswas as $siswa){
@@ -176,6 +177,7 @@ class WalasController extends Controller
 
         return response()->view("pages.pesanWalas",[
             "username" => $username,
+            "kelas" => $kelas,
             "pesans" => $pesans
         ]);
     }

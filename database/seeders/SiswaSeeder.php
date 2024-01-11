@@ -33,5 +33,13 @@ class SiswaSeeder extends Seeder
                 "kelas" => "rpl1"
             ]);
         }
+        for ($i = 34; $i <= 66; $i++) {
+            Siswa::create([
+                "nis" => "NIS" . $i,
+                "nama" => "Siswa " . $i,
+                "jenis_kelamin" => $i % 2 == 0 ? 'laki-laki' : 'wanita',
+                "kelas" => "rpl2"
+            ]);
+        }
     }
 }

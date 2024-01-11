@@ -12,7 +12,7 @@
     @php
         $side = session()->has('nuptk') ? 'walas' : 'sekretaris';
     @endphp
-  @include('components.aside', ['sideIs' => $side, 'side' => 'absen'])
+  @include('components.aside', ['sideIs' => $side, 'side' => 'absen', 'kelas'=>$kelas])
 
   <button id="sidebarButton" class="md:hidden items-center text-blue-600 p-3">
       <svg class="block scale-150 h-4 w-4 fill-current" viewBox="0 0 20 20">
