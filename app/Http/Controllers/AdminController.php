@@ -92,8 +92,7 @@ class AdminController extends Controller
     
     public function logoutProses(Request $request)
     {
-        // Clear the user's session
-        $request->session()->forget('user_email');
+        $request->session()->flush();
 
         // Redirect to the login page
         return redirect()->route('login');

@@ -140,8 +140,7 @@ class SekretarisController extends Controller
 
     public function logout(Request $request)
     {
-        // Clear the user's session
-        $request->session()->forget('nis');
+        $request->session()->flush();
 
         // Redirect to the login page
         return redirect('/sekretaris/login');

@@ -6,7 +6,9 @@
     <div class="flex flex-col justify-between h-full">
         <div class="flex-grow">
             <div class="px-4 py-6 text-center border-b">
-                <h1 class="text-xl font-bold leading-none"><span class="text-yellow-700">Citra Negara</span> Presensi</h1>
+                <a href="/walas">
+                    <h1 class="text-xl font-bold leading-none"><span class="text-yellow-700">Citra Negara</span> Presensi</h1>
+                </a>
             </div>
             @if (!empty($sideIs) && $sideIs == "walas")
                 <div class="p-4">
@@ -32,25 +34,85 @@
             @elseif(!empty($sideIs) && $sideIs == "bk")
                 <div class="p-4">
                     <ul id="navigationLink" class="space-y-1">
-                        <form action="/absensi/rpl1/data/hari-ini" method="get">
-                            @csrf
-                            <li class="{{ $kelas == 'rpl1' ? 'active' : '' }}">
-                                <input type="hidden" name="kelas" value="rpl1">
-                                <button type="submit" class="flex items-center rounded-xl font-bold text-sm text-yellow-900 py-3 px-4">
-                                <span>⬆</span> Data Absensi RPL1
-                                </button>
-                            </li>                        
-                        </form>
-                        <form action="/absensi/rpl2/data/hari-ini" method="get">
-                            @csrf
-                            <li class="{{ $kelas == 'rpl2' ? 'active' : '' }}">
-                                <input type="hidden" name="kelas" value="rpl2">
-                                <button type="submit" class="flex items-center rounded-xl font-bold text-sm text-yellow-900 py-3 px-4">
-                                <span>⬆</span> Data Absensi RPL2
-                                </button>
-                            </li>                        
-                        </form>                     
-                                             
+                        @php
+                            $admin = session()->get("user_email");
+                            $nuptk = session()->get("nuptk");
+                            // $kelas = session()->get("kelas");
+                            $role = session()->get("role");
+                        @endphp
+                        @if ($nuptk)
+                        
+                            @if($role == 'bk')
+                            <form action="/absensi/rpl1/data/hari-ini" method="get">
+                                @csrf
+                                <li class="{{ $kelas == 'rpl1' ? 'active' : '' }}">
+                                    <input type="hidden" name="kelas" value="rpl1">
+                                    <button type="submit" class="flex items-center rounded-xl font-bold text-sm text-yellow-900 py-3 px-4">
+                                    <span>⬆</span> Data Absensi RPL1
+                                    </button>
+                                </li>                        
+                            </form>
+                            <form action="/absensi/rpl2/data/hari-ini" method="get">
+                                @csrf
+                                <li class="{{ $kelas == 'rpl2' ? 'active' : '' }}">
+                                    <input type="hidden" name="kelas" value="rpl2">
+                                    <button type="submit" class="flex items-center rounded-xl font-bold text-sm text-yellow-900 py-3 px-4">
+                                    <span>⬆</span> Data Absensi RPL2
+                                    </button>
+                                </li>                        
+                            </form>
+                            @elseif ($kelas == 'rpl1')
+                                <form action="/absensi/rpl1/data/hari-ini" method="get">
+                                    @csrf
+                                    <li class="{{ $kelas == 'rpl1' ? 'active' : '' }}">
+                                        <input type="hidden" name="kelas" value="rpl1">
+                                        <button type="submit" class="flex items-center rounded-xl font-bold text-sm text-yellow-900 py-3 px-4">
+                                        <span>⬆</span> Data Absensi RPL1
+                                        </button>
+                                    </li>                        
+                                </form>
+                            @else
+                                <form action="/absensi/rpl2/data/hari-ini" method="get">
+                                    @csrf
+                                    <li class="{{ $kelas == 'rpl2' ? 'active' : '' }}">
+                                        <input type="hidden" name="kelas" value="rpl2">
+                                        <button type="submit" class="flex items-center rounded-xl font-bold text-sm text-yellow-900 py-3 px-4">
+                                        <span>⬆</span> Data Absensi RPL2
+                                        </button>
+                                    </li>                        
+                                </form>
+                            @endif
+                            
+                            @if (!$role)
+                                <li class="border border-blue-400">
+                                    <a href="/absensi/walas" class="flex items-center rounded-xl font-bold text-sm text-yellow-900 py-3 px-4"><< Back</a>
+                                </li>
+                            @endif
+                        @else
+                            <form action="/absensi/rpl1/data/hari-ini" method="get">
+                                @csrf
+                                <li class="{{ $kelas == 'rpl1' ? 'active' : '' }}">
+                                    <input type="hidden" name="kelas" value="rpl1">
+                                    <button type="submit" class="flex items-center rounded-xl font-bold text-sm text-yellow-900 py-3 px-4">
+                                    <span>⬆</span> Data Absensi RPL1
+                                    </button>
+                                </li>                        
+                            </form>
+                            <form action="/absensi/rpl2/data/hari-ini" method="get">
+                                @csrf
+                                <li class="{{ $kelas == 'rpl2' ? 'active' : '' }}">
+                                    <input type="hidden" name="kelas" value="rpl2">
+                                    <button type="submit" class="flex items-center rounded-xl font-bold text-sm text-yellow-900 py-3 px-4">
+                                    <span>⬆</span> Data Absensi RPL2
+                                    </button>
+                                </li>                        
+                            </form>
+                            @if ($admin)
+                                <li class="border border-blue-400">
+                                    <a href="/walas" class="flex items-center rounded-xl font-bold text-sm text-yellow-900 py-3 px-4"><< Back</a>
+                                </li>
+                            @endif
+                        @endif
                     </ul>
                 </div>
             @elseif(!empty($sideIs) && $sideIs == "sekretaris")
@@ -100,7 +162,8 @@
                     </button> 
                 </form>
             @elseif(!empty($sideIs) && $sideIs == "sekretaris")
-                <form action="/sekretaris/logout" method="post">
+            @elseif(!empty($sideIs) && $sideIs == "bk")
+                <form action="/bk/logout" method="post">
                     @csrf
                     <button type="submit" class="inline-flex items-center justify-center h-9 px-4 rounded-xl bg-gray-900 text-gray-300 hover:text-white text-sm font-semibold transition">
                         ⭕<span class="font-bold text-sm ml-2">Logout</span>

@@ -41,6 +41,7 @@ class WalasController extends Controller
         }
 
         $request->session()->put("nuptk", $nuptk);
+        $request->session()->put("kelas", $walas->kelas);
         
         return redirect("/absensi/walas");
     }
@@ -194,8 +195,7 @@ class WalasController extends Controller
 
     public function logout(Request $request)
     {
-        // Clear the user's session
-        $request->session()->forget('nuptk');
+        $request->session()->flush();
 
         // Redirect to the login page
         return redirect('/walas/login');

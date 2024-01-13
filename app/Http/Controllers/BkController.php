@@ -39,6 +39,7 @@ class BkController extends Controller
         }
 
         $request->session()->put("nuptk", $nuptk);
+        $request->session()->put("role", "bk");
         $request->session()->put("side", "bk");
 
         return redirect("/absensi/rpl1/data/hari-ini");
@@ -94,7 +95,8 @@ class BkController extends Controller
         ]);
     }
     
-    public function updateBk(Request $request){
+    public function updateBk(Request $request)
+    {
         $bk_id = $request->input("walas_id");
         $username = $request->input("username");
         $password = $request->input("password");
@@ -125,5 +127,12 @@ class BkController extends Controller
         return view("pages.kelolaBk", [
             "bk" => $bk
         ]);
+    }
+    public function logout(Request $request)
+    {
+        $request->session()->flush();
+
+        // Redirect to the login page
+        return redirect('/bk/login');
     }
 }

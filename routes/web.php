@@ -47,7 +47,6 @@ Route::post('/register', [AdminController::class, 'registerProses']);
 Route::middleware([OnlyMemberMiddleware::class])->group(function () {
     Route::post('/logout', [AdminController::class, 'logoutProses'])->name('logout');
 
-    
     //walas
     Route::post('/walas', [WalasController::class, 'createWalas']);
     Route::delete('/walas', [WalasController::class, 'deleteWalas']);
@@ -78,7 +77,9 @@ Route::middleware([OnlyMemberMiddleware::class])->group(function () {
 });
 
 Route::middleware([WalasMiddleware::class])->group(function () {
+    //bk 
     Route::get("/absensi/{kelas}/data/{filter}", [AbsensiController::class, 'show']);
+    Route::post('/bk/logout', [BkController::class, 'logout']);
     
     //sekretaris
     Route::get("/absensi/sekretaris", [AbsensiController::class, 'indexSekretaris']);

@@ -78,8 +78,8 @@ class AbsensiController extends Controller
         $walas = Walas::where("nuptk", $nutpk)->first();
         $username = $walas->username;
 
-        $notValidDay = ["Sabtu"];
-        // $notValidDay = ["Sabtu", "Minggu"];
+        // $notValidDay = ["Sabtu" ];
+        $notValidDay = ["Sabtu", "Minggu"];
 
         $absensi = Absensi::where("nama_kelas", $walas->kelas)
             ->whereDate('tanggal', now()->toDateString())
