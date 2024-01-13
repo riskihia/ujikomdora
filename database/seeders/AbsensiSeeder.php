@@ -21,17 +21,33 @@ class AbsensiSeeder extends Seeder
         $siswas = Siswa::all();
 
         foreach ($siswas as $siswa) {
-            $currentDate = Carbon::parse('2023-12-31');
-            
-            while ($currentDate->lte(Carbon::parse('2024-02-06'))) {
-                $siswa->absensis()->create([
-                    'nama_kelas' => 'rpl1',
-                    'tanggal' => $currentDate->toDateString(),
-                    'status' => rand(0, 1) ? 'Hadir' : 'Tidak Hadir',
-                    'keterangan' => rand(0, 1) ? 'Sakit' : null,
-                ]);
+            if($siswa->kelas == "rpl1"){
 
-                $currentDate->addDay();
+                $currentDate = Carbon::parse('2023-12-31');
+                
+                while ($currentDate->lte(Carbon::parse('2024-02-06'))) {
+                    $siswa->absensis()->create([
+                        'nama_kelas' => 'rpl1',
+                        'tanggal' => $currentDate->toDateString(),
+                        'status' => rand(0, 1) ? 'Hadir' : 'Tidak Hadir',
+                        'keterangan' => rand(0, 1) ? 'Sakit' : null,
+                    ]);
+    
+                    $currentDate->addDay();
+                }
+            }else{
+                $currentDate = Carbon::parse('2023-12-31');
+                
+                while ($currentDate->lte(Carbon::parse('2024-02-06'))) {
+                    $siswa->absensis()->create([
+                        'nama_kelas' => 'rpl2',
+                        'tanggal' => $currentDate->toDateString(),
+                        'status' => rand(0, 1) ? 'Hadir' : 'Tidak Hadir',
+                        'keterangan' => rand(0, 1) ? 'Sakit' : null,
+                    ]);
+    
+                    $currentDate->addDay();
+                }
             }
         }
     }

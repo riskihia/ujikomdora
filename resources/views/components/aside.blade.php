@@ -17,7 +17,7 @@
                             </a>
                         </li>
                         <li class="{{ $side == 'data' ? 'active' : '' }}">
-                            <a href="/absensi/data/hari-ini" class="flex items-center rounded-xl font-bold text-sm text-yellow-900 py-3 px-4">
+                            <a href="/absensi/{{$kelas}}/data/hari-ini" class="flex items-center rounded-xl font-bold text-sm text-yellow-900 py-3 px-4">
                             <span>⬆</span> Data Absensi
                             </a>
                         </li>
@@ -32,7 +32,7 @@
             @elseif(!empty($sideIs) && $sideIs == "bk")
                 <div class="p-4">
                     <ul id="navigationLink" class="space-y-1">
-                        <form action="/absensi/data/hari-ini" method="get">
+                        <form action="/absensi/rpl1/data/hari-ini" method="get">
                             @csrf
                             <li class="{{ $kelas == 'rpl1' ? 'active' : '' }}">
                                 <input type="hidden" name="kelas" value="rpl1">
@@ -41,7 +41,7 @@
                                 </button>
                             </li>                        
                         </form>
-                        <form action="/absensi/data/hari-ini" method="get">
+                        <form action="/absensi/rpl2/data/hari-ini" method="get">
                             @csrf
                             <li class="{{ $kelas == 'rpl2' ? 'active' : '' }}">
                                 <input type="hidden" name="kelas" value="rpl2">
@@ -68,12 +68,12 @@
                 <div class="p-4">
                     <ul id="navigationLink" class="space-y-1">
                         <li class="{{ $side == 'akun' ? 'active' : '' }}">
-                            <a href="/" class="flex items-center rounded-xl font-bold text-sm text-yellow-900 py-3 px-4">
+                            <a href="/walas" class="flex items-center rounded-xl font-bold text-sm text-yellow-900 py-3 px-4">
                             <span>⬆</span> Kelola Akun
                             </a>
                         </li>
                         <li>
-                            <a href="" class="flex items-center rounded-xl font-bold text-sm text-yellow-900 py-3 px-4">
+                            <a href="/absensi/rpl1/data/hari-ini" class="flex items-center rounded-xl font-bold text-sm text-yellow-900 py-3 px-4">
                                 <span>⬆</span> Kelola Laporan
                             </a>
                         </li>

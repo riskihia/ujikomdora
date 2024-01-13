@@ -15,16 +15,16 @@ class WalasMiddleware
      */
     public function handle(Request $request, Closure $next): Response
     {
-
+        $admin = $request->session()->get("user_email");
         $nuptk = $request->session()->get("nuptk");
         $nis = $request->session()->get("nis");
 
-        
         // $url = $request->url();
         // dd([$nuptk, $nis, $url,strpos($url, 'walas') !== false]);
         // Mengecek apakah kata "walas" ada dalam URL
-        if ($nuptk) {
-            if($request->session()->exists("nuptk")){
+        if ($nuptk || $admin) {
+            if($request->session()->exists("nuptk") || 
+                $request->session()->exists("user_email")){
                 return $next($request);
             }else{
                 return redirect("/walas/login");

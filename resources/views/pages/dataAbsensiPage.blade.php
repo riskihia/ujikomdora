@@ -55,21 +55,21 @@
 
         {{-- button filter day, week,month --}}
         <div class="flex gap-2">
-          <form action="/absensi/data/hari-ini" method="get">
+          <form action="/absensi/{{$kelas}}/data/hari-ini" method="get">
             @csrf
             <input type="hidden" name="kelas" value="{{$kelas}}">        
             <button type="submit">
               <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">Hari ini</button>
             </button>
           </form>
-          <form action="/absensi/data/minggu" method="get">
+          <form action="/absensi/{{$kelas}}/data/minggu" method="get">
             @csrf
             <input type="hidden" name="kelas" value="{{$kelas}}">
             <button type="submit">
               <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">Minggu</button>
             </button>
           </form>
-          <form action="/absensi/data/bulan" method="get">
+          <form action="/absensi/{{$kelas}}/data/bulan" method="get">
             @csrf
             <input type="hidden" name="kelas" value="{{$kelas}}">
             <button type="submit">

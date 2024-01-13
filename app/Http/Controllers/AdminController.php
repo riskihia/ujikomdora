@@ -50,7 +50,7 @@ class AdminController extends Controller
 
         $request->session()->put("user_email", $email);
         
-        return redirect()->route("dashboard");
+        return redirect('/walas');
     }
     public function registerPage()
     {
@@ -87,7 +87,7 @@ class AdminController extends Controller
 
         $request->session()->put("user_email", $email);
         
-        return redirect()->route("dashboard");
+        return redirect('/walas');
     }
     
     public function logoutProses(Request $request)

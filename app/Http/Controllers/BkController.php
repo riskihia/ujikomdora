@@ -40,8 +40,8 @@ class BkController extends Controller
 
         $request->session()->put("nuptk", $nuptk);
         $request->session()->put("side", "bk");
-        
-        return redirect("/absensi/data/hari-ini");
+
+        return redirect("/absensi/rpl1/data/hari-ini");
     }
 
     public function createBk(Request $request)
