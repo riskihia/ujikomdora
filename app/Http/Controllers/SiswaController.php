@@ -25,7 +25,7 @@ class SiswaController extends Controller
         $validator = Validator::make($request->all(), [
             'nis' => 'required',
             'nama' => 'required',
-            'kelamin' => 'required|in:laki-laki,wanita',
+            'kelamin' => 'required|in:laki-laki,perempuan',
             'kelas' => 'required|in:rpl1,rpl2',
         ]);
     
