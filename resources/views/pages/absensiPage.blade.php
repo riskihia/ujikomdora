@@ -60,17 +60,17 @@
                         <div class="grid grid-cols-12 gap-4 mt-4 hover:bg-slate-100 py-2 px-2">
                             <div class="col-span-5">{{$absensi_data->siswa->nama}}</div>
                             <div class="col-span-7 flex justify-between items-center">
-                                <input name="{{$absensi_data->siswa->id}}" type="radio" value="hadir" class="h-4 w-4 rounded border-gray-300 text-indigo-600 focus:ring-indigo-600"
+                                <input name="{{$absensi_data->siswa->id}}" type="radio" value="hadir" class="h-4 w-4 rounded border-gray-900 text-indigo-600 focus:ring-indigo-600"
                                 {{ $absensi_data->keterangan === 'hadir' ? 'checked' : '' }}
                                 >
                                 
-                                <input name="{{$absensi_data->siswa->id}}" type="radio" value="sakit" class="h-4 w-4 rounded border-gray-300 text-indigo-600 focus:ring-indigo-600"
+                                <input name="{{$absensi_data->siswa->id}}" type="radio" value="sakit" class="h-4 w-4 rounded border-gray-900 text-indigo-600 focus:ring-indigo-600"
                                 {{ $absensi_data->keterangan === 'sakit' ? 'checked' : '' }}
                                 >
-                                <input name="{{$absensi_data->siswa->id}}" type="radio" value="alpha" class="h-4 w-4 rounded border-gray-300 text-indigo-600 focus:ring-indigo-600"
+                                <input name="{{$absensi_data->siswa->id}}" type="radio" value="alpha" class="h-4 w-4 rounded border-gray-900 text-indigo-600 focus:ring-indigo-600"
                                 {{ $absensi_data->keterangan === 'alpha' ? 'checked' : '' }}
                                 >
-                                <input name="{{$absensi_data->siswa->id}}" type="radio" value="izin" class="h-4 w-4 rounded border-gray-300 text-indigo-600 focus:ring-indigo-600"
+                                <input name="{{$absensi_data->siswa->id}}" type="radio" value="izin" class="h-4 w-4 rounded border-gray-900 text-indigo-600 focus:ring-indigo-600"
                                 {{ $absensi_data->keterangan === 'izin' ? 'checked' : '' }}
                                 >
                             </div>
