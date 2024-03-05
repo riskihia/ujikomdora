@@ -162,6 +162,12 @@
                     </button> 
                 </form>
             @elseif(!empty($sideIs) && $sideIs == "sekretaris")
+                <form action="/sekretaris/logout" method="post">
+                    @csrf
+                    <button type="submit" class="inline-flex items-center justify-center h-9 px-4 rounded-xl bg-gray-900 text-gray-300 hover:text-white text-sm font-semibold transition">
+                        ⭕<span class="font-bold text-sm ml-2">Logout</span>
+                    </button> 
+                </form>
             @elseif(!empty($sideIs) && $sideIs == "bk")
                 <form action="/bk/logout" method="post">
                     @csrf

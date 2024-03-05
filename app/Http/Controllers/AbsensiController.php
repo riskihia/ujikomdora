@@ -141,6 +141,7 @@ class AbsensiController extends Controller
         $nutpk = session("nuptk");
         $admin = session("user_email");
         $nis = session("nis");
+        
         if($admin){
             $username = session()->get('user_email');
             $request->session()->put("side", "bk");
