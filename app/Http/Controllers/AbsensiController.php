@@ -32,10 +32,10 @@ class AbsensiController extends Controller
             ->first();
         
         if(!$absensi){
-            $siswas = Siswa::all();
+            $siswas = Siswa::where("kelas", $sekretaris->kelas)->get();
             foreach($siswas as $siswa){
                 $siswa->absensis()->create([
-                    "nama_kelas" => $sekretaris->kelas
+                    "nama_kelas" => $siswa->kelas
                 ]);
             }
         }
@@ -86,10 +86,10 @@ class AbsensiController extends Controller
             ->first();
         
         if(!$absensi){
-            $siswas = Siswa::all();
+            $siswas = Siswa::where("kelas", $walas->kelas)->get();
             foreach($siswas as $siswa){
                 $siswa->absensis()->create([
-                    "nama_kelas" => $walas->kelas
+                    "nama_kelas" => $siswa->kelas
                 ]);
             }
         }
@@ -114,6 +114,8 @@ class AbsensiController extends Controller
         $absensi = Absensi::where("nama_kelas", $walas->kelas)
             ->whereDate('tanggal', now()->toDateString())
             ->get();
+
+
         return view("pages.absensiPage", [
             "username" => $username,
             "absensi" => $absensi,
